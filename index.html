@@ -1,14 +1,36 @@
 <!doctype html>
 <html>
     <head>
+        <meta charset="utf-8">
+
         <title>
             Life
         </title>
 
-        <script src="assets/js/main.js"></script>
+        <style type="text/css">
+            .dot{
+                width:10px;
+                height:10px;
+                border:1px solid #ccc;
+                display:inline-block;
+            }
+
+            .dot.alive{
+                background:#333;
+                border-color:#333;
+            }
+
+            #grid *{
+                line-height: 0;
+            }
+        </style>
     </head>
     <body>
+        <div id="grid"></div>
+
         <button id="stopLoop">Stop Loop</button>
         <button id="startLoop">Start Loop</button>
+
+        <script src="assets/js/main.js"></script>
     </body>
 </html>
