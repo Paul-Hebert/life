@@ -67,6 +67,24 @@ var life = {
         return Math.random() > life.startingPopulation;
     },
 
+    updateGridData(){
+        life.devDebug('life.updateGridData');
+
+        for(var i = 0; i < life.height; i++){
+            for(var x = 0; x < life.width; x++){
+            }
+        }
+    },
+
+    updateGridHtml(){
+        life.devDebug('life.updateGridHtml');
+
+        for(var i = 0; i < life.height; i++){
+            for(var x = 0; x < life.width; x++){
+            }
+        }
+    },
+
     renderGrid(){
         life.devDebug('life.renderGrid');
 
@@ -93,6 +111,9 @@ var life = {
 
     turn: function(){
         life.devDebug('life.turn')
+        
+        life.updateGridData();
+        life.updateGridHtml();
 
         life.renderGrid();
 
