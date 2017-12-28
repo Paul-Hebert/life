@@ -26,7 +26,7 @@ var life = {
     buildGridData(orgs){
         life.devDebug('life.buildGridData');
 
-        for(var i = 0; i < life.height; i++){
+        for(var y = 0; y < life.height; y++){
             var row = [];
 
             for(var x = 0; x < life.width; x++){
@@ -44,11 +44,11 @@ var life = {
 
         life.gridHtml = "";
 
-        for(var i = 0; i < life.height; i++){
+        for(var y = 0; y < life.height; y++){
             var row = "<div class='row'>";
 
             for(var x = 0; x < life.width; x++){
-                var liveClass = life.gridData[i][x] ? "alive" : "";
+                var liveClass = life.gridData[y][x] ? "alive" : "";
 
                 row += "<span class='dot " + liveClass + "'></span>";
             }
@@ -70,7 +70,7 @@ var life = {
     updateGridData(){
         life.devDebug('life.updateGridData');
 
-        for(var i = 0; i < life.height; i++){
+        for(var y = 0; y < life.height; y++){
             for(var x = 0; x < life.width; x++){
             }
         }
@@ -79,7 +79,7 @@ var life = {
     updateGridHtml(){
         life.devDebug('life.updateGridHtml');
 
-        for(var i = 0; i < life.height; i++){
+        for(var y = 0; y < life.height; y++){
             for(var x = 0; x < life.width; x++){
             }
         }
