@@ -5,42 +5,46 @@ document.addEventListener("DOMContentLoaded", function() {
 var settings = {
     dev: false,
     startingPopulation: .6,
+
+    rate: 60,
+
+    width:120,
+    height:120,
+}
+
+var grid = {
+    data: [],
+    html: ""
+}
+
+var ui = {
+    startLoopButton: document.getElementById('startLoop'),
+    stopLoopButton: document.getElementById('stopLoop'),
+    resetGridButton: document.getElementById('resetGrid'),
+
+    startingPopulationInput: document.getElementById('startingPopulation'),
+    rateInput: document.getElementById('rate')
 }
 
 var life = {
     counter: 0,
-    rate: 60,
-
-    gridData: [],
-    gridHtml: "",
-    width:120,
-    height:120,
-
-    ui:{
-        startLoopButton: document.getElementById('startLoop'),
-        stopLoopButton: document.getElementById('stopLoop'),
-        resetGridButton: document.getElementById('resetGrid'),
-
-        startingPopulationInput: document.getElementById('startingPopulation'),
-        rateInput: document.getElementById('rate')
-    },
 
     init: function(){
         life.devDebug('life.init');
 
         life.buildGrid();
 
-        life.ui.startLoopButton.addEventListener('click', function() { life.loop.start(); });
-        life.ui.stopLoopButton.addEventListener('click', function() { life.loop.stop(); });
+        ui.startLoopButton.addEventListener('click', function() { life.loop.start(); });
+        ui.stopLoopButton.addEventListener('click', function() { life.loop.stop(); });
 
-        life.ui.resetGridButton.addEventListener('click', function() { life.resetGrid(); });
+        ui.resetGridButton.addEventListener('click', function() { life.resetGrid(); });
     },
 
     getGridSettings(){
         life.devDebug('life.getGridSettings');
 
-        life.rate = life.ui.rateInput.value;
-        settings.startingPopulation = life.ui.startingPopulationInput.value;
+        settings.rate = ui.rateInput.value;
+        settings.startingPopulation = ui.startingPopulationInput.value;
     },
 
     resetGrid(){
@@ -64,41 +68,41 @@ var life = {
     buildGridData(orgs){
         life.devDebug('life.buildGridData');
 
-        life.gridData = [];
+        grid.data = [];
 
-        for(var y = 0; y < life.height; y++){
+        for(var y = 0; y < settings.height; y++){
             var row = [];
 
-            for(var x = 0; x < life.width; x++){
+            for(var x = 0; x < settings.width; x++){
                 row.push(life.buildcell());
             }
 
-            life.gridData.push(row);
+            grid.data.push(row);
         }
 
-        life.devDebug(life.gridData, true);
+        life.devDebug(grid.data, true);
     },
 
     buildGridSkeleton(){
         life.devDebug('life.buildGridSkeleton');
 
-        life.gridHtml = "";
+        grid.html = "";
 
-        for(var y = 0; y < life.height; y++){
+        for(var y = 0; y < settings.height; y++){
             var row = "<div class='row'>";
 
-            for(var x = 0; x < life.width; x++){
-                var liveClass = life.gridData[y][x] ? "alive" : "";
+            for(var x = 0; x < settings.width; x++){
+                var liveClass = grid.data[y][x] ? "alive" : "";
 
                 row += "<span class='cell " + liveClass + "' data-x='" + x + "' data-y='" + y + "'></span>";
             }
 
             row += "</div>";
 
-            life.gridHtml += row;
+            grid.html += row;
         }
 
-        life.devDebug(life.gridHtml);
+        life.devDebug(grid.html);
     },
 
     buildcell(){
@@ -112,22 +116,22 @@ var life = {
 
         var tempGridData = [];
 
-        for(var y = 0; y < life.height; y++){
+        for(var y = 0; y < settings.height; y++){
             var row = [];
 
-            for(var x = 0; x < life.width; x++){
-                var alive = life.gridData[y][x];
+            for(var x = 0; x < settings.width; x++){
+                var alive = grid.data[y][x];
                 var neighbors = [];
                 var liveNeighbors = 0;
 
-                neighbors.push(life.gridData[life.checkBounds(life.height, y - 1)][life.checkBounds(life.width, x - 1)]); // left and up
-                neighbors.push(life.gridData[y][life.checkBounds(life.width, x - 1)]); // left
-                neighbors.push(life.gridData[life.checkBounds(life.height, y + 1)][life.checkBounds(life.width, x - 1)]); // left and down
-                neighbors.push(life.gridData[y][life.checkBounds(life.width, x + 1)]); // right
-                neighbors.push(life.gridData[life.checkBounds(life.height, y - 1)][life.checkBounds(life.width, x + 1)]); // right and up
-                neighbors.push(life.gridData[life.checkBounds(life.height, y + 1)][x]) // bottom
-                neighbors.push(life.gridData[life.checkBounds(life.height, y + 1)][life.checkBounds(life.width, x + 1)]); // right and down
-                neighbors.push(life.gridData[life.checkBounds(life.height, y - 1)][x]) // top
+                neighbors.push(grid.data[life.checkBounds(settings.height, y - 1)][life.checkBounds(settings.width, x - 1)]); // left and up
+                neighbors.push(grid.data[y][life.checkBounds(settings.width, x - 1)]); // left
+                neighbors.push(grid.data[life.checkBounds(settings.height, y + 1)][life.checkBounds(settings.width, x - 1)]); // left and down
+                neighbors.push(grid.data[y][life.checkBounds(settings.width, x + 1)]); // right
+                neighbors.push(grid.data[life.checkBounds(settings.height, y - 1)][life.checkBounds(settings.width, x + 1)]); // right and up
+                neighbors.push(grid.data[life.checkBounds(settings.height, y + 1)][x]) // bottom
+                neighbors.push(grid.data[life.checkBounds(settings.height, y + 1)][life.checkBounds(settings.width, x + 1)]); // right and down
+                neighbors.push(grid.data[life.checkBounds(settings.height, y - 1)][x]) // top
 
                 neighbors.forEach(function(alive) {
                     if(alive){
@@ -151,16 +155,16 @@ var life = {
             tempGridData.push(row);
         }
 
-        life.gridData = tempGridData;
+        grid.data = tempGridData;
 
-        life.devDebug(life.gridData, true);
+        life.devDebug(grid.data, true);
     },
 
     updateGridHtml(){
         life.devDebug('life.updateGridHtml');
 
-        for(var y = 0; y < life.height; y++){
-            for(var x = 0; x < life.width; x++){
+        for(var y = 0; y < settings.height; y++){
+            for(var x = 0; x < settings.width; x++){
             }
         }
     },
@@ -168,14 +172,14 @@ var life = {
     renderGrid(){
         life.devDebug('life.renderGrid');
 
-        document.getElementById('grid').innerHTML = life.gridHtml;
+        document.getElementById('grid').innerHTML = grid.html;
 
         document.querySelectorAll('.cell').forEach(function(cell){
             cell.addEventListener('click', function() { 
                 var x = cell.getAttribute('data-x');
                 var y = cell.getAttribute('data-y');
 
-                life.gridData[y][x] = !life.gridData[y][x];
+                grid.data[y][x] = !grid.data[y][x];
 
                 life.buildGridSkeleton();
                 life.renderGrid();
@@ -204,7 +208,7 @@ var life = {
     turn: function(){
         life.counter++;
 
-        if(life.counter % life.rate === 0){
+        if(life.counter % settings.rate === 0){
             life.devDebug('life.turn')
             
             life.updateGridData();
