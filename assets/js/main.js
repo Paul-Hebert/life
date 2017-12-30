@@ -244,3 +244,42 @@ var life = {
         return number;
     }
 };
+
+var creatures = [
+    {
+        name: "Blinker",
+        dynamic: true,
+        data: [
+            [true],
+            [true],
+            [true]
+        ]
+    },
+    {
+        name: "Block",
+        dynamic: false,
+        data: [
+            [true, true],
+            [true, true]
+        ]
+    },
+    {
+        name: "Glider",
+        dynamic: true,
+        data: [
+            [false, true, false],
+            [false, false, true],
+            [true, true, true]
+        ]
+    },
+    {
+        name: "Clock",
+        dynamic: true,
+        data: [
+            [false, false, true, false],
+            [true, true, false, false],
+            [false, false, true, true],
+            [false, true, false, false]
+        ]
+    }
+];
