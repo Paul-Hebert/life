@@ -34,6 +34,9 @@ var loop = {
     start(){
         life.devDebug('loop.start');
 
+        ui.stopLoopButton.style.display = "inline";
+        ui.startLoopButton.style.display = "none";
+
         loop.active = true;
 
         requestAnimationFrame(loop.turn);
@@ -41,6 +44,9 @@ var loop = {
 
     stop(){
         life.devDebug('loop.stop');
+
+        ui.stopLoopButton.style.display = "none";
+        ui.startLoopButton.style.display = "inline";
 
         loop.active = false;
     },
