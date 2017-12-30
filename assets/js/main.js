@@ -14,19 +14,55 @@ var life = {
     width:120,
     height:120,
 
+    ui:{
+        startLoopButton: document.getElementById('startLoop'),
+        stopLoopButton: document.getElementById('stopLoop'),
+        resetGridButton: document.getElementById('resetGrid'),
+
+        startingPopulationInput: document.getElementById('startingPopulation'),
+        rateInput: document.getElementById('rate')
+    },
+
     init: function(){
         life.devDebug('life.init');
+
+        life.buildGrid();
+
+        life.ui.startLoopButton.addEventListener('click', function() { life.loop.start(); });
+        life.ui.stopLoopButton.addEventListener('click', function() { life.loop.stop(); });
+
+        life.ui.resetGridButton.addEventListener('click', function() { life.resetGrid(); });
+    },
+
+    getGridSettings(){
+        life.devDebug('life.getGridSettings');
+
+        life.rate = life.ui.rateInput.value;
+        life.startingPopulation = life.ui.startingPopulationInput.value;
+    },
+
+    resetGrid(){
+        life.devDebug('life.resetGrid');
+
+        life.loop.stop();
+
+        life.buildGrid();
+    },
+
+    buildGrid(){
+        life.devDebug('life.buildGrid');
+        
+        life.getGridSettings();
 
         life.buildGridData();
         life.buildGridSkeleton();
         life.renderGrid();
-
-        document.getElementById('startLoop').addEventListener('click', function() { life.loop.start(); });
-        document.getElementById('stopLoop').addEventListener('click', function() { life.loop.stop(); });
     },
 
     buildGridData(orgs){
         life.devDebug('life.buildGridData');
+
+        life.gridData = [];
 
         for(var y = 0; y < life.height; y++){
             var row = [];
@@ -136,8 +172,6 @@ var life = {
             cell.addEventListener('click', function() { 
                 var x = cell.getAttribute('data-x');
                 var y = cell.getAttribute('data-y');
-
-                console.log(life.gridData[y][x])
 
                 life.gridData[y][x] = !life.gridData[y][x];
 
