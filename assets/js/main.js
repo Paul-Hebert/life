@@ -10,7 +10,7 @@ var life = {
     gridData: [],
     gridHtml: "",
 
-    startingPopulation: 1,//.6,
+    startingPopulation: 1,
     width:120,
     height:120,
 
@@ -82,9 +82,13 @@ var life = {
                 var neighbors = [];
                 var liveNeighbors = 0;
 
+                neighbors.push(life.gridData[life.checkBounds(life.height, y - 1)][life.checkBounds(life.width, x - 1)]); // left and up
                 neighbors.push(life.gridData[y][life.checkBounds(life.width, x - 1)]); // left
+                neighbors.push(life.gridData[life.checkBounds(life.height, y + 1)][life.checkBounds(life.width, x - 1)]); // left and down
                 neighbors.push(life.gridData[y][life.checkBounds(life.width, x + 1)]); // right
+                neighbors.push(life.gridData[life.checkBounds(life.height, y - 1)][life.checkBounds(life.width, x + 1)]); // right and up
                 neighbors.push(life.gridData[life.checkBounds(life.height, y + 1)][x]) // bottom
+                neighbors.push(life.gridData[life.checkBounds(life.height, y + 1)][life.checkBounds(life.width, x + 1)]); // right and down
                 neighbors.push(life.gridData[life.checkBounds(life.height, y - 1)][x]) // top
 
                 neighbors.forEach(function(alive) {
