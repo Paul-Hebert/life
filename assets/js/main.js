@@ -74,7 +74,7 @@ var life = {
             var row = [];
 
             for(var x = 0; x < settings.width; x++){
-                row.push(life.buildcell());
+                row.push(life.buildCell());
             }
 
             grid.data.push(row);
@@ -105,8 +105,8 @@ var life = {
         life.devDebug(grid.html);
     },
 
-    buildcell(){
-        life.devDebug('life.buildcell');
+    buildCell(){
+        life.devDebug('life.buildCell');
 
         return Math.random() > settings.startingPopulation;
     },
