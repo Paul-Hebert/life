@@ -10,7 +10,7 @@ var life = {
     gridData: [],
     gridHtml: "",
 
-    startingPopulation: 1,
+    startingPopulation: .6,
     width:120,
     height:120,
 
@@ -32,7 +32,7 @@ var life = {
             var row = [];
 
             for(var x = 0; x < life.width; x++){
-                row.push(life.buildDot());
+                row.push(life.buildcell());
             }
 
             life.gridData.push(row);
@@ -52,7 +52,7 @@ var life = {
             for(var x = 0; x < life.width; x++){
                 var liveClass = life.gridData[y][x] ? "alive" : "";
 
-                row += "<span class='dot " + liveClass + "' data-x='" + x + "' data-y='" + y + "'></span>";
+                row += "<span class='cell " + liveClass + "' data-x='" + x + "' data-y='" + y + "'></span>";
             }
 
             row += "</div>";
@@ -63,8 +63,8 @@ var life = {
         life.devDebug(life.gridHtml);
     },
 
-    buildDot(){
-        life.devDebug('life.buildDot');
+    buildcell(){
+        life.devDebug('life.buildcell');
 
         return Math.random() > life.startingPopulation;
     },
@@ -132,10 +132,10 @@ var life = {
 
         document.getElementById('grid').innerHTML = life.gridHtml;
 
-        document.querySelectorAll('.dot').forEach(function(dot){
-            dot.addEventListener('click', function() { 
-                var x = dot.getAttribute('data-x');
-                var y = dot.getAttribute('data-y');
+        document.querySelectorAll('.cell').forEach(function(cell){
+            cell.addEventListener('click', function() { 
+                var x = cell.getAttribute('data-x');
+                var y = cell.getAttribute('data-y');
 
                 console.log(life.gridData[y][x])
 
