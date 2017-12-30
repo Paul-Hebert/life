@@ -10,12 +10,12 @@ var settings = {
 
     width:120,
     height:120,
-}
+};
 
 var grid = {
     data: [],
     html: ""
-}
+};
 
 var ui = {
     startLoopButton: document.getElementById('startLoop'),
@@ -23,13 +23,15 @@ var ui = {
     resetGridButton: document.getElementById('resetGrid'),
 
     startingPopulationInput: document.getElementById('startingPopulation'),
-    rateInput: document.getElementById('rate')
-}
+    rateInput: document.getElementById('rate'),
+
+    grid: document.getElementById('grid')
+};
 
 var loop = {
     active: false,
 
-    start: function(){
+    start(){
         life.devDebug('loop.start');
 
         loop.active = true;
@@ -37,13 +39,13 @@ var loop = {
         requestAnimationFrame(loop.turn);
     },
 
-    stop: function(){
+    stop(){
         life.devDebug('loop.stop');
 
         loop.active = false;
     },
 
-    turn: function(){
+    turn(){
         life.counter++;
 
         if(life.counter % settings.rate === 0){
@@ -59,12 +61,12 @@ var loop = {
             requestAnimationFrame(loop.turn);
         }
     }
-}
+};
 
 var life = {
     counter: 0,
 
-    init: function(){
+    init(){
         life.devDebug('life.init');
 
         life.buildGrid();
@@ -207,7 +209,7 @@ var life = {
     renderGrid(){
         life.devDebug('life.renderGrid');
 
-        document.getElementById('grid').innerHTML = grid.html;
+        ui.grid.innerHTML = grid.html;
 
         document.querySelectorAll('.cell').forEach(function(cell){
             cell.addEventListener('click', function() { 
@@ -222,7 +224,7 @@ var life = {
         });
     },
 
-    devDebug: function(message, table){
+    devDebug(message, table){
         if(settings.dev){
             if(table){
                 console.table(message);
@@ -241,4 +243,4 @@ var life = {
 
         return number;
     }
-}
+};
