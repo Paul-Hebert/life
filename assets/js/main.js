@@ -10,6 +10,8 @@ var settings = {
 
     width:120,
     height:120,
+
+    wrapGrid: false
 };
 
 var grid = {
@@ -164,17 +166,31 @@ var life = {
 
             for(var x = 0; x < settings.width; x++){
                 var alive = grid.data[y][x];
-                var neighbors = [];
-                var liveNeighbors = 0;
+                var neighborCoordinates = [];
 
-                neighbors.push(grid.data[life.checkBounds(settings.height, y - 1)][life.checkBounds(settings.width, x - 1)]); // left and up
-                neighbors.push(grid.data[y][life.checkBounds(settings.width, x - 1)]); // left
-                neighbors.push(grid.data[life.checkBounds(settings.height, y + 1)][life.checkBounds(settings.width, x - 1)]); // left and down
-                neighbors.push(grid.data[y][life.checkBounds(settings.width, x + 1)]); // right
-                neighbors.push(grid.data[life.checkBounds(settings.height, y - 1)][life.checkBounds(settings.width, x + 1)]); // right and up
-                neighbors.push(grid.data[life.checkBounds(settings.height, y + 1)][x]) // bottom
-                neighbors.push(grid.data[life.checkBounds(settings.height, y + 1)][life.checkBounds(settings.width, x + 1)]); // right and down
-                neighbors.push(grid.data[life.checkBounds(settings.height, y - 1)][x]) // top
+                // Corresponds to lettered code lines below
+                // a|b|c
+                // d|x|e
+                // f|g|h
+
+                /* a */ neighborCoordinates.push([life.checkBounds(settings.height, y - 1), life.checkBounds(settings.width, x - 1)]); // left and up
+                /* b */ neighborCoordinates.push([life.checkBounds(settings.height, y - 1), x]); // top
+                /* c */ neighborCoordinates.push([life.checkBounds(settings.height, y - 1), life.checkBounds(settings.width, x + 1)]); // right and up
+                /* d */ neighborCoordinates.push([y, life.checkBounds(settings.width, x - 1)]); // left
+                /* e */ neighborCoordinates.push([y, life.checkBounds(settings.width, x + 1)]); // right
+                /* f */ neighborCoordinates.push([life.checkBounds(settings.height, y + 1), life.checkBounds(settings.width, x - 1)]); // left and down
+                /* g */ neighborCoordinates.push([life.checkBounds(settings.height, y + 1), x]); // bottom
+                /* h */ neighborCoordinates.push([life.checkBounds(settings.height, y + 1), life.checkBounds(settings.width, x + 1)]); // right and down
+
+                var neighbors = [];
+
+                neighborCoordinates.forEach(function(coordinate){
+                    if(typeof grid.data[coordinate[0]] !== "undefined" && typeof grid.data[coordinate[0]][coordinate[1]] !== "undefined"){
+                        neighbors.push(grid.data[coordinate[0]][coordinate[1]]);
+                    }
+                });
+
+                var liveNeighbors = 0;
 
                 neighbors.forEach(function(alive) {
                     if(alive){
@@ -241,10 +257,12 @@ var life = {
     },
 
     checkBounds(max, number){
-        if(number >= max){
-            number = 0;
-        } else if(number < 0){
-            number = max - 1;
+        if(settings.wrapGrid){
+            if(number >= max){
+                number = 0;
+            } else if(number < 0){
+                number = max - 1;
+            }
         }
 
         return number;
