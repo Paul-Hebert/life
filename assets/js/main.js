@@ -26,6 +26,41 @@ var ui = {
     rateInput: document.getElementById('rate')
 }
 
+var loop = {
+    active: false,
+
+    start: function(){
+        life.devDebug('loop.start');
+
+        loop.active = true;
+
+        requestAnimationFrame(loop.turn);
+    },
+
+    stop: function(){
+        life.devDebug('loop.stop');
+
+        loop.active = false;
+    },
+
+    turn: function(){
+        life.counter++;
+
+        if(life.counter % settings.rate === 0){
+            life.devDebug('loop.turn')
+            
+            life.updateGridData();
+            life.buildGridSkeleton();
+    
+            life.renderGrid();
+        }
+
+        if(loop.active){
+            requestAnimationFrame(loop.turn);
+        }
+    }
+}
+
 var life = {
     counter: 0,
 
@@ -34,8 +69,8 @@ var life = {
 
         life.buildGrid();
 
-        ui.startLoopButton.addEventListener('click', function() { life.loop.start(); });
-        ui.stopLoopButton.addEventListener('click', function() { life.loop.stop(); });
+        ui.startLoopButton.addEventListener('click', function() { loop.start(); });
+        ui.stopLoopButton.addEventListener('click', function() { loop.stop(); });
 
         ui.resetGridButton.addEventListener('click', function() { life.resetGrid(); });
     },
@@ -50,7 +85,7 @@ var life = {
     resetGrid(){
         life.devDebug('life.resetGrid');
 
-        life.loop.stop();
+        loop.stop();
 
         life.buildGrid();
     },
@@ -185,41 +220,6 @@ var life = {
                 life.renderGrid();
             });
         });
-    },
-
-    loop: {
-        active: false,
-
-        start: function(){
-            life.devDebug('life.loop.start');
-
-            life.loop.active = true;
-
-            requestAnimationFrame(life.turn);
-        },
-
-        stop: function(){
-            life.devDebug('life.loop.stop');
-
-            life.loop.active = false;
-        }
-    },
-
-    turn: function(){
-        life.counter++;
-
-        if(life.counter % settings.rate === 0){
-            life.devDebug('life.turn')
-            
-            life.updateGridData();
-            life.buildGridSkeleton();
-    
-            life.renderGrid();
-        }
-
-        if(life.loop.active){
-            requestAnimationFrame(life.turn);
-        }
     },
 
     devDebug: function(message, table){
