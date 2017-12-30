@@ -2,15 +2,17 @@ document.addEventListener("DOMContentLoaded", function() {
     life.init();
 });
 
-var life = {
+var settings = {
     dev: false,
+    startingPopulation: .6,
+}
+
+var life = {
     counter: 0,
     rate: 60,
 
     gridData: [],
     gridHtml: "",
-
-    startingPopulation: .6,
     width:120,
     height:120,
 
@@ -38,7 +40,7 @@ var life = {
         life.devDebug('life.getGridSettings');
 
         life.rate = life.ui.rateInput.value;
-        life.startingPopulation = life.ui.startingPopulationInput.value;
+        settings.startingPopulation = life.ui.startingPopulationInput.value;
     },
 
     resetGrid(){
@@ -51,7 +53,7 @@ var life = {
 
     buildGrid(){
         life.devDebug('life.buildGrid');
-        
+
         life.getGridSettings();
 
         life.buildGridData();
@@ -102,7 +104,7 @@ var life = {
     buildcell(){
         life.devDebug('life.buildcell');
 
-        return Math.random() > life.startingPopulation;
+        return Math.random() > settings.startingPopulation;
     },
 
     updateGridData(){
@@ -217,7 +219,7 @@ var life = {
     },
 
     devDebug: function(message, table){
-        if(life.dev){
+        if(settings.dev){
             if(table){
                 console.table(message);
             } else{
