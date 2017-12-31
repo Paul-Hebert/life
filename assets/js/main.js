@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 var settings = {
-    dev: false,
+    dev: true,
     startingPopulation: .6,
 
     rate: 60,
@@ -38,7 +38,7 @@ var loop = {
     active: false,
 
     start(){
-        life.devDebug('loop.start');
+        utilities.devDebug('loop.start');
 
         ui.stopLoopButton.style.display = "inline";
         ui.startLoopButton.style.display = "none";
@@ -49,7 +49,7 @@ var loop = {
     },
 
     stop(){
-        life.devDebug('loop.stop');
+        utilities.devDebug('loop.stop');
 
         ui.stopLoopButton.style.display = "none";
         ui.startLoopButton.style.display = "inline";
@@ -61,7 +61,7 @@ var loop = {
         life.counter++;
 
         if(life.counter % settings.rate === 0){
-            life.devDebug('loop.turn')
+            utilities.devDebug('loop.turn')
             
             life.updateGridData();
             life.buildGridSkeleton();
@@ -79,7 +79,7 @@ var life = {
     counter: 0,
 
     init(){
-        life.devDebug('life.init');
+        utilities.devDebug('life.init');
 
         ui.body.classList.add(settings.gridTheme);
 
@@ -92,14 +92,14 @@ var life = {
     },
 
     getGridSettings(){
-        life.devDebug('life.getGridSettings');
+        utilities.devDebug('life.getGridSettings');
 
         settings.rate = ui.rateInput.value;
         settings.startingPopulation = ui.startingPopulationInput.value;
     },
 
     resetGrid(){
-        life.devDebug('life.resetGrid');
+        utilities.devDebug('life.resetGrid');
 
         loop.stop();
 
@@ -107,7 +107,7 @@ var life = {
     },
 
     buildGrid(){
-        life.devDebug('life.buildGrid');
+        utilities.devDebug('life.buildGrid');
 
         life.getGridSettings();
 
@@ -117,7 +117,7 @@ var life = {
     },
 
     buildGridData(orgs){
-        life.devDebug('life.buildGridData');
+        utilities.devDebug('life.buildGridData');
 
         grid.data = [];
 
@@ -131,11 +131,11 @@ var life = {
             grid.data.push(row);
         }
 
-        life.devDebug(grid.data, true);
+        utilities.devDebug(grid.data, true);
     },
 
     buildGridSkeleton(){
-        life.devDebug('life.buildGridSkeleton');
+        utilities.devDebug('life.buildGridSkeleton');
 
         grid.html = "";
 
@@ -153,17 +153,17 @@ var life = {
             grid.html += row;
         }
 
-        life.devDebug(grid.html);
+        utilities.devDebug(grid.html);
     },
 
     buildCell(){
-        life.devDebug('life.buildCell');
+        utilities.devDebug('life.buildCell');
 
         return Math.random() > settings.startingPopulation;
     },
 
     updateGridData(){
-        life.devDebug('life.updateGridData');
+        utilities.devDebug('life.updateGridData');
 
         var tempGridData = [];
 
@@ -222,11 +222,11 @@ var life = {
 
         grid.data = tempGridData;
 
-        life.devDebug(grid.data, true);
+        utilities.devDebug(grid.data, true);
     },
 
     updateGridHtml(){
-        life.devDebug('life.updateGridHtml');
+        utilities.devDebug('life.updateGridHtml');
 
         for(var y = 0; y < settings.height; y++){
             for(var x = 0; x < settings.width; x++){
@@ -235,7 +235,7 @@ var life = {
     },
 
     renderGrid(){
-        life.devDebug('life.renderGrid');
+        utilities.devDebug('life.renderGrid');
 
         ui.primaryGrid.innerHTML = grid.html;
 
@@ -252,16 +252,6 @@ var life = {
         });
     },
 
-    devDebug(message, table){
-        if(settings.dev){
-            if(table){
-                console.table(message);
-            } else{
-                console.log(message);                
-            }
-        }
-    },
-
     checkBounds(max, number){
         if(settings.wrapGrid){
             if(number >= max){
@@ -275,8 +265,8 @@ var life = {
     }
 };
 
-var creatures = [
-    {
+var creatures = {
+    blinker: {
         name: "Blinker",
         dynamic: true,
         data: [
@@ -285,7 +275,7 @@ var creatures = [
             [true]
         ]
     },
-    {
+    block: {
         name: "Block",
         dynamic: false,
         data: [
@@ -293,7 +283,7 @@ var creatures = [
             [true, true]
         ]
     },
-    {
+    glider: {
         name: "Glider",
         dynamic: true,
         data: [
@@ -302,7 +292,7 @@ var creatures = [
             [true, true, true]
         ]
     },
-    {
+    clock: {
         name: "Clock",
         dynamic: true,
         data: [
@@ -312,4 +302,16 @@ var creatures = [
             [false, true, false, false]
         ]
     }
-];
+};
+
+var utilities = {
+    devDebug(message, table){
+        if(settings.dev){
+            if(table){
+                console.table(message);
+            } else{
+                console.log(message);                
+            }
+        }
+    }
+}
