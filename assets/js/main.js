@@ -8,7 +8,7 @@ var settings = {
 
     rate: 60,
 
-    width:30,
+    width:40,
     height:30,
 
     wrapGrid: true,
@@ -275,7 +275,7 @@ var life = {
                 var currentY = life.checkBounds(settings.height, yCount + y);
 
                 if(typeof grid.data[currentY] !== "undefined" && typeof grid.data[currentY][currentX] !== "undefined"){
-                    grid.data[currentY][currentX] = creatureData[yCount][xCount];
+                    grid.data[currentY][currentX] = creatureData[yCount][xCount] === 1 ? true : false;
                 }
             }
         }
@@ -290,38 +290,53 @@ var creatures = {
         name: "Blinker",
         dynamic: true,
         data: [
-            [true],
-            [true],
-            [true]
+            [1],
+            [1],
+            [1]
         ]
     },
     block: {
         name: "Block",
         dynamic: false,
         data: [
-            [true, true],
-            [true, true]
+            [1,1],
+            [1,1]
         ]
     },
     glider: {
         name: "Glider",
         dynamic: true,
         data: [
-            [false, true, false],
-            [false, false, true],
-            [true, true, true]
+            [0,1,0],
+            [0,0,1],
+            [1,1,1]
         ]
     },
     clock: {
         name: "Clock",
         dynamic: true,
         data: [
-            [false, false, true, false],
-            [true, true, false, false],
-            [false, false, true, true],
-            [false, true, false, false]
+            [0,0,1,0],
+            [1,1,0,0],
+            [0,0,1,1],
+            [0,1,0,0]
         ]
-    }
+    },
+    gun: {
+        name: "Gun",
+        dynamic: true,
+        data: [
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+            [0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
+            [1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [1,1,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        ]
+    },
 };
 
 var utilities = {
