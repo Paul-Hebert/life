@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 var settings = {
-    dev: true,
+    dev: false,
     startingPopulation: .6,
 
     rate: 60,
@@ -262,6 +262,26 @@ var life = {
         }
 
         return number;
+    },
+
+    addCreature(creature, x, y){
+        var creatureData = creatures[creature].data;
+        var creatureWidth = creatureData[0].length;
+        var creatureHeight = creatureData.length;
+
+        for(yCount = 0; yCount < creatureHeight; yCount++){
+            for(xCount = 0; xCount < creatureWidth; xCount++){
+                var currentX = life.checkBounds(settings.width, xCount + x);
+                var currentY = life.checkBounds(settings.height, yCount + y);
+
+                if(typeof grid.data[currentY] !== "undefined" && typeof grid.data[currentY][currentX] !== "undefined"){
+                    grid.data[currentY][currentX] = creatureData[yCount][xCount];
+                }
+            }
+        }
+
+        life.buildGridSkeleton();
+        life.renderGrid();
     }
 };
 
