@@ -8,10 +8,12 @@ var settings = {
 
     rate: 60,
 
-    width:120,
-    height:120,
+    width:30,
+    height:30,
 
-    wrapGrid: false
+    wrapGrid: true,
+
+    gridTheme: "gooey" // Other options: null
 };
 
 var grid = {
@@ -27,7 +29,9 @@ var ui = {
     startingPopulationInput: document.getElementById('startingPopulation'),
     rateInput: document.getElementById('rate'),
 
-    grid: document.getElementById('grid')
+    primaryGrid: document.getElementById('primaryGrid'),
+
+    body: document.body
 };
 
 var loop = {
@@ -76,6 +80,8 @@ var life = {
 
     init(){
         life.devDebug('life.init');
+
+        ui.body.classList.add(settings.gridTheme);
 
         life.buildGrid();
 
@@ -231,7 +237,7 @@ var life = {
     renderGrid(){
         life.devDebug('life.renderGrid');
 
-        ui.grid.innerHTML = grid.html;
+        ui.primaryGrid.innerHTML = grid.html;
 
         document.querySelectorAll('.cell').forEach(function(cell){
             cell.addEventListener('click', function() { 

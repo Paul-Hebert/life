@@ -8,9 +8,8 @@
         </title>
 
         <link rel="stylesheet" href="assets/css/styles.min.css">
-    </head>
     <body>
-        <div id="grid"></div>
+        <div id="primaryGrid" class="grid"></div>
 
         <label>
             Rate:
@@ -26,6 +25,16 @@
 
         <button id="stopLoop">Stop Loop</button>
         <button id="startLoop">Start Loop</button>
+
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+            <defs>
+                <filter id="goo">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
+                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+                    <feBlend in="SourceGraphic" in2="goo" />
+                </filter>
+            </defs>
+        </svg>
 
         <script src="assets/js/main.js"></script>
     </body>

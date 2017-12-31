@@ -1,6 +1,6 @@
 .cell {
-  width: 4px;
-  height: 4px;
+  width: 20px;
+  height: 20px;
   border: 1px solid #eee;
   display: inline-block;
 }
@@ -10,9 +10,23 @@
   border-color: #333;
 }
 
-#grid * {
+.grid * {
   line-height: 0;
   font-size: 0;
+}
+
+.gooey .grid {
+  filter: url("#goo");
+  -moz-filter: url("#goo");
+  -webkit-filter: url("#goo");
+}
+
+.gooey .grid .cell {
+  border: 1px solid rgba(51, 51, 51, 0.05);
+}
+
+.gooey .grid .cell.alive {
+  border-radius: 50%;
 }
 
 #stopLoop {
