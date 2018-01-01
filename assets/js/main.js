@@ -64,7 +64,6 @@ var loop = {
             utilities.devDebug('loop.turn')
             
             life.updateGridData();
-            life.buildGridSkeleton();
     
             life.renderGrid();
         }
@@ -153,7 +152,19 @@ var life = {
             grid.html += row;
         }
 
-        utilities.devDebug(grid.html);
+        ui.primaryGrid.innerHTML = grid.html;
+
+        document.querySelectorAll('.cell').forEach(function(cell){
+            cell.addEventListener('click', function() { 
+                var id = cell.id.split("-");
+                var x = id[0];
+                var y = id[1];
+
+                grid.data[y][x] = !grid.data[y][x];
+
+                life.renderGrid();
+            });
+        });
     },
 
     buildCell(){
@@ -225,32 +236,20 @@ var life = {
         utilities.devDebug(grid.data, true);
     },
 
-    updateGridHtml(){
-        utilities.devDebug('life.updateGridHtml');
-
-        for(var y = 0; y < settings.height; y++){
-            for(var x = 0; x < settings.width; x++){
-            }
-        }
-    },
-
     renderGrid(){
         utilities.devDebug('life.renderGrid');
 
-        ui.primaryGrid.innerHTML = grid.html;
+        for(var y = 0; y < settings.height; y++){
+            for(var x = 0; x < settings.width; x++){
+                var cell = document.getElementById(x + "-" + y);
 
-        document.querySelectorAll('.cell').forEach(function(cell){
-            cell.addEventListener('click', function() { 
-                var id = cell.id.split("-");
-                var x = id[0];
-                var y = id[1];
-
-                grid.data[y][x] = !grid.data[y][x];
-
-                life.buildGridSkeleton();
-                life.renderGrid();
-            });
-        });
+                if(grid.data[y][x]){
+                    cell.classList.add('alive');
+                } else{
+                    cell.classList.remove('alive');
+                }
+            }
+        }
     },
 
     checkBounds(max, number){
@@ -280,8 +279,6 @@ var life = {
                 }
             }
         }
-
-        life.buildGridSkeleton();
         life.renderGrid();
     }
 };
