@@ -11,7 +11,7 @@ var settings = {
     width:40,
     height:30,
 
-    wrapGrid: true,
+    wrapGrid: false,
 
     gridTheme: "gooey" // Other options: null
 };
@@ -145,7 +145,7 @@ var life = {
             for(var x = 0; x < settings.width; x++){
                 var liveClass = grid.data[y][x] ? "alive" : "";
 
-                row += "<span class='cell " + liveClass + "' data-x='" + x + "' data-y='" + y + "'></span>";
+                row += "<span class='cell " + liveClass + "' id='" + x + "-" + y + "'></span>";
             }
 
             row += "</div>";
@@ -241,8 +241,9 @@ var life = {
 
         document.querySelectorAll('.cell').forEach(function(cell){
             cell.addEventListener('click', function() { 
-                var x = cell.getAttribute('data-x');
-                var y = cell.getAttribute('data-y');
+                var id = cell.id.split("-");
+                var x = id[0];
+                var y = id[1];
 
                 grid.data[y][x] = !grid.data[y][x];
 
