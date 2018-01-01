@@ -28,3 +28,8 @@
 .gooey .grid .cell.alive {
   border-radius: 50%;
 }
+
+.transition .cell {
+  transition: 1000ms background-color;
+  border-radius: 50%;
+}

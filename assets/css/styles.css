@@ -29,6 +29,11 @@
   border-radius: 50%;
 }
 
+.transition .cell {
+  transition: 1000ms all;
+  border-radius: 50%;
+}
+
 #stopLoop {
   display: none;
 }

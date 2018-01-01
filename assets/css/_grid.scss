@@ -31,3 +31,10 @@
         }
     }
 }
+
+.transition{
+    .cell{
+        transition:1000ms background-color;
+        border-radius:50%;
+    }
+}

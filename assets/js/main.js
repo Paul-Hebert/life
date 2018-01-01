@@ -6,14 +6,14 @@ var settings = {
     dev: false,
     startingPopulation: .6,
 
-    rate: 60,
+    rate: 10,
 
     width:40,
     height:30,
 
     wrapGrid: false,
 
-    gridTheme: "gooey" // Other options: null
+    gridTheme: ["gooey", "transition"] // Other options: []
 };
 
 var grid = {
@@ -80,7 +80,7 @@ var life = {
     init(){
         utilities.devDebug('life.init');
 
-        ui.body.classList.add(settings.gridTheme);
+        life.setGridSettingsUi()
 
         life.buildGrid();
 
@@ -88,6 +88,17 @@ var life = {
         ui.stopLoopButton.addEventListener('click', function() { loop.stop(); });
 
         ui.resetGridButton.addEventListener('click', function() { life.resetGrid(); });
+    },
+
+    setGridSettingsUi(){
+        utilities.devDebug('life.getGridSettings');
+
+        ui.rateInput.value = settings.rate;
+        ui.startingPopulationInput.value = settings.startingPopulation;
+
+        settings.gridTheme.forEach(function(theme){
+            ui.body.classList.add(theme);
+        });
     },
 
     getGridSettings(){
