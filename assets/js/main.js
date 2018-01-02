@@ -321,6 +321,16 @@ var creatures = {
             [1,1,1]
         ]
     },
+    lightweightSpaceship: {
+        name: "Lightweight Spaceship",
+        dynamic: true,
+        data: [
+            [0,1,0,0,1],
+            [1,0,0,0,0],
+            [1,0,0,0,1],
+            [1,1,1,1,0]
+        ]
+    },
     clock: {
         name: "Clock",
         dynamic: true,
