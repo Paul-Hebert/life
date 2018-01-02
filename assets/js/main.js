@@ -6,7 +6,7 @@ var settings = {
     dev: false,
     startingPopulation: .6,
 
-    rate: 10,
+    rate: 200,
 
     width:40,
     height:30,
@@ -37,6 +37,10 @@ var ui = {
 var loop = {
     active: false,
 
+    now: null,
+    dt: null,
+    last: null,
+
     start(){
         utilities.devDebug('loop.start');
 
@@ -44,6 +48,10 @@ var loop = {
         ui.startLoopButton.style.display = "none";
 
         loop.active = true;
+
+        loop.now = null;
+        loop.duration = null;
+        loop.last = loop.timestamp();
 
         requestAnimationFrame(loop.turn);
     },
@@ -58,10 +66,13 @@ var loop = {
     },
 
     turn(){
-        life.counter++;
+        loop.now = loop.timestamp();
+        loop.duration = loop.now - loop.last;
 
-        if(life.counter % settings.rate === 0){
-            utilities.devDebug('loop.turn')
+        if(loop.duration >= settings.rate){
+            utilities.devDebug('loop.turn');
+
+            loop.last = loop.now;
             
             life.updateGridData();
     
@@ -71,12 +82,14 @@ var loop = {
         if(loop.active){
             requestAnimationFrame(loop.turn);
         }
+    },
+
+    timestamp() {
+        return window.performance && window.performance.now ? window.performance.now() : new Date().getTime();
     }
 };
 
 var life = {
-    counter: 0,
-
     init(){
         utilities.devDebug('life.init');
 
