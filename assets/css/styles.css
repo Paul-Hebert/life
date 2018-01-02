@@ -30,7 +30,7 @@
 }
 
 .transition .cell {
-  transition: 1000ms all;
+  transition: 500ms background-color;
   border-radius: 50%;
 }
 
