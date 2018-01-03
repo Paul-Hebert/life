@@ -22,24 +22,8 @@ var grid = {
 };
 
 var player = {
-    nodes: [
-        {
-            x:3,
-            y:0
-        },
-        {
-            x:2,
-            y:0
-        },
-        {
-            x:1,
-            y:0
-        },
-        {
-            x:0,
-            y:0
-        }
-    ]
+    x:0,
+    y:0
 }
 
 var ui = {
@@ -60,14 +44,7 @@ var controls = {
         window.addEventListener("keydown",function(e){
             e.preventDefault();
 
-            controls.pressedKeys[controls.keyCodes[e.keyCode]] = true;
-        });
-        window.addEventListener("keyup",function(e){
-            controls.pressedKeys[controls.keyCodes[e.keyCode]] = false;
-        });
-
-        Object.keys(controls.keyCodes).forEach(function(code){
-            controls.pressedKeys[code] = false;
+            controls.pressedKey = controls.keyCodes[e.keyCode];
         });
     },
     keyCodes: {
@@ -76,7 +53,7 @@ var controls = {
         "39": "right",
         "40": "down"
     },
-    pressedKeys:{}
+    pressedKey: null
 }
 
 var loop = {
@@ -329,9 +306,7 @@ var life = {
             cell.classList.remove('player');
         });
 
-        player.nodes.forEach(function(node){
-            document.getElementById(node.x + "-" + node.y).classList.add('player');
-        });
+        document.getElementById(player.x + "-" + player.y).classList.add('player');
     },
 
     checkBounds(max, number){
@@ -369,39 +344,15 @@ var life = {
     },
 
     movePlayer(){
-        var nodeLength = player.nodes.length;
-        var lastNode = player.nodes[nodeLength - 1];
-
-        var pressedKeyNumber = 0;
-
-        if(controls.pressedKeys["left"]){
-            lastNode.x = life.checkBounds(settings.width, lastNode.x - 1);
-
-            pressedKeyNumber++;
+        if(controls.pressedKey === "left"){
+            player.x = life.checkBounds(settings.width, player.x - 1);
+        } else if(controls.pressedKey === "right"){
+            player.x = life.checkBounds(settings.width, player.x + 1);
+        } else if(controls.pressedKey === "up"){
+            player.y = life.checkBounds(settings.height, player.y - 1);
+        }else if(controls.pressedKey === "down"){
+            player.y = life.checkBounds(settings.height, player.y + 1);
         }
-        if(controls.pressedKeys["right"]){
-            lastNode.x = life.checkBounds(settings.width, lastNode.x + 1);
-
-            pressedKeyNumber++;
-        }
-        if(controls.pressedKeys["up"]){
-            lastNode.y = life.checkBounds(settings.height, lastNode.y - 1);
-
-            pressedKeyNumber++;
-        }
-        if(controls.pressedKeys["down"]){
-            lastNode.y = life.checkBounds(settings.height, lastNode.y + 1);
-
-            pressedKeyNumber++;
-        }
-        if(pressedKeyNumber !== 0){
-            for(var nodeCount = 0; nodeCount < nodeLength - 1; nodeCount++){
-                player.nodes[nodeCount] = player.nodes[nodeCount + 1];
-            }
-
-            console.log(player.nodes)
-        }
-
     }
 };
 
