@@ -288,7 +288,7 @@ var life = {
         return number;
     },
 
-    addCreature(creature, x, y){
+    addCreature(creature, x, y, rotation){
         var creatureData = creatures[creature].data;
         var creatureWidth = creatureData[0].length;
         var creatureHeight = creatureData.length;
@@ -304,6 +304,10 @@ var life = {
             }
         }
         life.renderGrid();
+    },
+
+    saveGrid(){
+        console.log(JSON.stringify(grid.data));
     }
 };
 
