@@ -1,4 +1,4 @@
-#Goal
+# Goal
 
 This project's purpose is to explore turning Conway's Game of Life into a more traditional 1 player game.
 
@@ -12,7 +12,7 @@ My goal is to take this basic principle and mix it with more traditional gamepla
 
 ---
 
-#Game Concepts
+# Game Concepts
 
 I had a few ideas about classic game mechanics that could be combined with Conway's Game of Life to create a fun playing experience:
 
