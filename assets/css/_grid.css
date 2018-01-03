@@ -30,6 +30,11 @@
 }
 
 .transition .cell {
-  transition: 500ms background-color;
+  transition: 1000ms background-color;
   border-radius: 50%;
+}
+
+.hoveredEffects .cell:hover {
+  background: #900;
+  cursor: pointer;
 }

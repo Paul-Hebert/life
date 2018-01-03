@@ -11,9 +11,9 @@ var settings = {
     width:40,
     height:30,
 
-    wrapGrid: false,
+    wrapGrid: true,
 
-    gridTheme: ["gooey", "transition"] // Other options: []
+    gridTheme: ["gooey", "transition", "hoveredEffects"] // Other options: []
 };
 
 var grid = {
