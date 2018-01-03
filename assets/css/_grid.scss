@@ -40,6 +40,11 @@
     .cell{
         transition:1000ms background-color;
         border-radius:50%;
+
+
+        &.player{
+            transition:50ms background-color;
+        }
     }
 }
 

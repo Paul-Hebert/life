@@ -38,6 +38,10 @@
   border-radius: 50%;
 }
 
+.transition .cell.player {
+  transition: 50ms background-color;
+}
+
 .hoveredEffects .cell:hover {
   background: #900;
   cursor: pointer;
