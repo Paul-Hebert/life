@@ -353,6 +353,11 @@ var life = {
         }else if(controls.pressedKey === "down"){
             player.y = life.checkBounds(settings.height, player.y + 1);
         }
+
+        if(document.getElementById(player.x + '-' + player.y).classList.contains('alive')){
+            loop.stop();
+            console.log("You Lose");
+        }
     }
 };
 
