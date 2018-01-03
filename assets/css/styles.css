@@ -10,6 +10,10 @@
   border-color: #333;
 }
 
+.cell.player {
+  background: #d00;
+}
+
 .grid * {
   line-height: 0;
   font-size: 0;

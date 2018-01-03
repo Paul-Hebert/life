@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var settings = {
     dev: false,
-    startingPopulation: .6,
+    startingPopulation: .9,
 
     rate: 200,
 
@@ -21,6 +21,15 @@ var grid = {
     html: ""
 };
 
+var player = {
+    nodes: [
+        {
+            x:0,
+            y:0
+        }
+    ]
+}
+
 var ui = {
     startLoopButton: document.getElementById('startLoop'),
     stopLoopButton: document.getElementById('stopLoop'),
@@ -33,6 +42,27 @@ var ui = {
 
     body: document.body
 };
+
+var controls = {
+    logKeyCodes(){
+        console.log(controls.pressedKeys);
+    },
+    bindHandlers(){
+        window.addEventListener("keydown",function(e){
+            controls.pressedKeys[controls.keyCodes[e.keyCode]] = true;
+        });
+        window.addEventListener("keyup",function(e){
+            controls.pressedKeys[controls.keyCodes[e.keyCode]] = false;
+        });
+    },
+    keyCodes: {
+        "37": "left",
+        "38": "up",
+        "39": "right",
+        "40": "down"
+    },
+    pressedKeys:{}
+}
 
 var loop = {
     active: false,
@@ -72,6 +102,8 @@ var loop = {
         if(loop.duration >= settings.rate){
             utilities.devDebug('loop.turn');
 
+            controls.translateKeyCodes();
+
             loop.last = loop.now;
             
             life.updateGridData();
@@ -101,6 +133,8 @@ var life = {
         ui.stopLoopButton.addEventListener('click', function() { loop.stop(); });
 
         ui.resetGridButton.addEventListener('click', function() { life.resetGrid(); });
+
+        controls.bindHandlers();
     },
 
     setGridSettingsUi(){
@@ -274,6 +308,14 @@ var life = {
                 }
             }
         }
+
+        document.querySelectorAll('player').forEach(function(cell){
+            cell.classList.remove('player');
+        });
+
+        player.nodes.forEach(function(node){
+            document.getElementById(node.x + "-" + node.y).classList.add('player');
+        });
     },
 
     checkBounds(max, number){
