@@ -28,6 +28,8 @@ var player = {
     y:0
 }
 
+var resources = [];
+
 var ui = {
     startLoopButton: document.getElementById('startLoop'),
     stopLoopButton: document.getElementById('stopLoop'),
@@ -341,6 +343,15 @@ var life = {
         life.renderGrid();
     },
 
+    addResource(x, y){
+        resources.push({
+            "x": x, 
+            "y": y
+        });
+
+        document.getElementById(x + "-" + y).classList.add('resource');
+    },
+
     saveGrid(){
         console.log(JSON.stringify(grid.data));
     },
@@ -363,6 +374,15 @@ var life = {
 
             console.log("You Lose");
         }
+
+        resources.forEach(function(item, index, object){
+            if(item.x === player.x && item.y === player.y){
+                console.log('resource');
+
+                object.splice(index, 1);
+                document.getElementById(item.x + "-" + item.y).classList.remove('resource');
+            }
+        });
 
         if(!settings.constantMovement){
             controls.pressedKey = null;

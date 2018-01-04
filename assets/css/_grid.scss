@@ -4,6 +4,10 @@
     border:1px solid #eee;
     display:inline-block;
 
+    &.resource{
+        background:#838;
+    }
+
     &.player{
         background:#d00;
     }

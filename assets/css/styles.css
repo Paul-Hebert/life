@@ -5,12 +5,21 @@
   display: inline-block;
 }
 
-.cell.alive {
-  background: #333;
+.cell.resource {
+  background: #838;
 }
 
 .cell.player {
   background: #d00;
+}
+
+.cell.alive {
+  background: #333;
+}
+
+.cell.alive.engorged {
+  background: #933;
+  border-color: #933;
 }
 
 .cell.engorged {
