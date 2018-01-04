@@ -8,6 +8,8 @@ var settings = {
 
     rate: 200,
 
+    constantMovement: true,
+
     width:40,
     height:30,
 
@@ -357,6 +359,10 @@ var life = {
         if(document.getElementById(player.x + '-' + player.y).classList.contains('alive')){
             loop.stop();
             console.log("You Lose");
+        }
+
+        if(!settings.constantMovement){
+            controls.pressedKey = null;
         }
     }
 };
