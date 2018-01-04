@@ -4,13 +4,24 @@
     border:1px solid #eee;
     display:inline-block;
 
-    &.alive{
-        background:#333;
-        border-color:#333;
-    }
-
     &.player{
         background:#d00;
+    }
+
+    &.alive{
+        background:#333;
+
+        &.engorged{
+            background:#933;
+            border-color:#933;
+        }
+    }
+
+    &.engorged{
+        width:30px;
+        height:30px;
+        margin-top:-5px;
+        margin-bottom:-5px;
     }
 }
 

@@ -358,6 +358,9 @@ var life = {
 
         if(document.getElementById(player.x + '-' + player.y).classList.contains('alive')){
             loop.stop();
+
+            document.getElementById(player.x + '-' + player.y).classList.add('engorged');
+
             console.log("You Lose");
         }
 
