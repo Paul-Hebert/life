@@ -209,10 +209,10 @@ var life = {
 
         var tempGridData = [];
 
-        for(var y = 0; y < settings.height; y++){
+        for(var y = 0; y < grid.data.length; y++){
             var row = [];
 
-            for(var x = 0; x < settings.width; x++){
+            for(var x = 0; x < grid.data[0].length; x++){
                 var alive = grid.data[y][x];
                 var neighborCoordinates = [];
 
@@ -283,11 +283,13 @@ var life = {
             }
         }
 
-        document.querySelectorAll('.player').forEach(function(cell){
-            cell.classList.remove('player');
-        });
+        if(player !== null){
+            document.querySelectorAll('.player').forEach(function(cell){
+                cell.classList.remove('player');
+            });
 
-        document.getElementById(player.x + "-" + player.y).classList.add('player');
+            document.getElementById(player.x + "-" + player.y).classList.add('player');
+        }
     },
 
     checkBounds(max, number){
