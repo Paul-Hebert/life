@@ -3,8 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 var settings = {
-    dev: false,
-    startingPopulation: .9,
+    dev: true,
 
     rate: 200,
 
@@ -33,9 +32,7 @@ var resources = [];
 var ui = {
     startLoopButton: document.getElementById('startLoop'),
     stopLoopButton: document.getElementById('stopLoop'),
-    resetGridButton: document.getElementById('resetGrid'),
 
-    startingPopulationInput: document.getElementById('startingPopulation'),
     rateInput: document.getElementById('rate'),
 
     primaryGrid: document.getElementById('primaryGrid'),
@@ -123,12 +120,10 @@ var life = {
 
         life.setGridSettingsUi()
 
-        life.buildGrid();
+        life.loadLevel(0);
 
         ui.startLoopButton.addEventListener('click', function() { loop.start(); });
         ui.stopLoopButton.addEventListener('click', function() { loop.stop(); });
-
-        ui.resetGridButton.addEventListener('click', function() { life.resetGrid(); });
 
         controls.bindHandlers();
     },
@@ -137,7 +132,6 @@ var life = {
         utilities.devDebug('life.getGridSettings');
 
         ui.rateInput.value = settings.rate;
-        ui.startingPopulationInput.value = settings.startingPopulation;
 
         settings.gridTheme.forEach(function(theme){
             ui.body.classList.add(theme);
@@ -148,37 +142,18 @@ var life = {
         utilities.devDebug('life.getGridSettings');
 
         settings.rate = ui.rateInput.value;
-        settings.startingPopulation = ui.startingPopulationInput.value;
     },
 
-    resetGrid(){
-        utilities.devDebug('life.resetGrid');
-
-        loop.stop();
-
-        life.buildGrid();
-    },
-
-    buildGrid(){
-        utilities.devDebug('life.buildGrid');
-
-        life.getGridSettings();
-
-        life.buildGridData();
-        life.buildGridSkeleton();
-        life.renderGrid();
-    },
-
-    buildGridData(orgs){
+    buildGridData(width, height){
         utilities.devDebug('life.buildGridData');
 
         grid.data = [];
 
-        for(var y = 0; y < settings.height; y++){
+        for(var y = 0; y < height; y++){
             var row = [];
 
-            for(var x = 0; x < settings.width; x++){
-                row.push(life.buildCell());
+            for(var x = 0; x < width; x++){
+                row.push(false);
             }
 
             grid.data.push(row);
@@ -196,9 +171,7 @@ var life = {
             var row = "<div class='row'>";
 
             for(var x = 0; x < settings.width; x++){
-                var liveClass = grid.data[y][x] ? "alive" : "";
-
-                row += "<span class='cell " + liveClass + "' id='" + x + "-" + y + "'></span>";
+                row += "<span class='cell' id='" + x + "-" + y + "'></span>";
             }
 
             row += "</div>";
@@ -221,10 +194,10 @@ var life = {
         });
     },
 
-    buildCell(){
+    randomCell(chance){
         utilities.devDebug('life.buildCell');
 
-        return Math.random() > settings.startingPopulation;
+        return Math.random() > chance;
     },
 
     updateGridData(){
@@ -340,7 +313,6 @@ var life = {
                 }
             }
         }
-        life.renderGrid();
     },
 
     addResource(x, y){
@@ -387,6 +359,30 @@ var life = {
         if(!settings.constantMovement){
             controls.pressedKey = null;
         }
+    },
+
+    loadLevel(id){
+        utilities.devDebug('life.loadLevel');
+
+        var level = levels[id];
+
+        life.getGridSettings();
+
+        life.buildGridData(level.width, level.height);
+        
+        life.buildGridSkeleton();
+
+        level.creatures.forEach(function(creature){
+            life.addCreature(creature.name, creature.x, creature.y);
+        });
+
+        level.resources.forEach(function(resource){
+            life.addResource(resource.x, resource.y);
+        });
+
+        player = level.player;
+
+        life.renderGrid();
     }
 };
 
@@ -464,6 +460,85 @@ var creatures = {
         ]
     },
 };
+
+var levels = [
+    {
+        Name: "The Beginning",
+        width:40,
+        height:30,
+        creatures: [
+            {
+                name: 'glider',
+                x: 0,
+                y: 0
+            },
+            {
+                name: 'glider',
+                x: 5,
+                y: 0
+            },
+            {
+                name: 'glider',
+                x: 10,
+                y: 0
+            },
+            {
+                name: 'glider',
+                x: 15,
+                y: 0
+            },
+            {
+                name: 'glider',
+                x: 20,
+                y: 0
+            },
+            {
+                name: 'glider',
+                x: 25,
+                y: 0
+            },
+            {
+                name: 'glider',
+                x: 30,
+                y: 0
+            }
+        ],
+        resources: [
+            {
+                x: 20,
+                y: 0
+            },
+            {
+                x: 7,
+                y: 11
+            },
+            {
+                x: 29,
+                y: 28
+            },
+            {
+                x: 11,
+                y: 3
+            },
+            {
+                x: 1,
+                y: 13
+            },
+            {
+                x: 34,
+                y: 8
+            },
+            {
+                x: 8,
+                y: 18
+            }
+        ],
+        player : {
+            x: 20,
+            y: 15
+        }
+    }
+]
 
 var utilities = {
     devDebug(message, table){
