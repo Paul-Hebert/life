@@ -14,7 +14,7 @@ var settings = {
 
     wrapGrid: true,
 
-    gridTheme: ["gooey", "transition", "hoveredEffects"] // Other options: []
+    gridTheme: ["gooey", "transition"] // Other options: ["hoveredEffects"]
 };
 
 var grid = {
@@ -118,9 +118,7 @@ var life = {
     init(){
         utilities.devDebug('life.init');
 
-        life.setGridSettingsUi()
-
-        life.loadLevel(0);
+        life.setGridSettingsUi();
 
         ui.startLoopButton.addEventListener('click', function() { loop.start(); });
         ui.stopLoopButton.addEventListener('click', function() { loop.stop(); });
@@ -144,6 +142,13 @@ var life = {
         settings.rate = ui.rateInput.value;
     },
 
+    buildEmptyGrid(width, height){
+        utilities.devDebug('life.buildEmptyGrid');
+
+        life.buildGridData(width, height);
+        life.buildGridSkeleton(width, height);
+    },
+
     buildGridData(width, height){
         utilities.devDebug('life.buildGridData');
 
@@ -162,15 +167,15 @@ var life = {
         utilities.devDebug(grid.data, true);
     },
 
-    buildGridSkeleton(){
+    buildGridSkeleton(width, height){
         utilities.devDebug('life.buildGridSkeleton');
 
         grid.html = "";
 
-        for(var y = 0; y < settings.height; y++){
+        for(var y = 0; y < height; y++){
             var row = "<div class='row'>";
 
-            for(var x = 0; x < settings.width; x++){
+            for(var x = 0; x < width; x++){
                 row += "<span class='cell' id='" + x + "-" + y + "'></span>";
             }
 
@@ -194,12 +199,6 @@ var life = {
         });
     },
 
-    randomCell(chance){
-        utilities.devDebug('life.buildCell');
-
-        return Math.random() > chance;
-    },
-
     updateGridData(){
         utilities.devDebug('life.updateGridData');
 
@@ -212,7 +211,7 @@ var life = {
                 var alive = grid.data[y][x];
                 var neighborCoordinates = [];
 
-                // Corresponds to lettered code lines below
+                // Corresponds to lettered code lines below - x is the active cell
                 // a|b|c
                 // d|x|e
                 // f|g|h
@@ -267,8 +266,8 @@ var life = {
     renderGrid(){
         utilities.devDebug('life.renderGrid');
 
-        for(var y = 0; y < settings.height; y++){
-            for(var x = 0; x < settings.width; x++){
+        for(var y = 0; y < grid.data.length; y++){
+            for(var x = 0; x < grid.data[0].length; x++){
                 var cell = document.getElementById(x + "-" + y);
 
                 if(grid.data[y][x]){
@@ -366,11 +365,7 @@ var life = {
 
         var level = levels[id];
 
-        life.getGridSettings();
-
-        life.buildGridData(level.width, level.height);
-        
-        life.buildGridSkeleton();
+        life.buildEmptyGrid(level.width, level.height);
 
         level.creatures.forEach(function(creature){
             life.addCreature(creature.name, creature.x, creature.y);
@@ -383,7 +378,31 @@ var life = {
         player = level.player;
 
         life.renderGrid();
-    }
+
+        loop.start();
+    },
+
+    loadRandomGrid(chance, width, height){
+        life.buildEmptyGrid(width, height);
+
+        for(y = 0; y < height; y++){
+            for(x = 0; x < width; x++){
+                console.log(x,y)
+                if(Math.random() > chance){
+                    grid.data[y][x] = true;
+                }
+            }
+        }
+
+        life.renderGrid();
+        loop.start();
+    },
+
+    randomCell(chance){
+        utilities.devDebug('life.buildCell');
+
+        return Math.random() > chance;
+    },
 };
 
 var creatures = {
