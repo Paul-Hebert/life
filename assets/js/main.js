@@ -1,9 +1,10 @@
 document.addEventListener("DOMContentLoaded", function() {
     life.init();
+    life.startGame();
 });
 
 var settings = {
-    dev: true,
+    dev: false,
 
     rate: 200,
 
@@ -120,6 +121,8 @@ var loop = {
 };
 
 var life = {
+    currentLevel: 0,
+
     init(){
         utilities.devDebug('life.init');
 
@@ -129,6 +132,12 @@ var life = {
         ui.stopLoopButton.addEventListener('click', function() { loop.stop(); });
 
         controls.bindHandlers();
+    },
+
+    startGame(){
+        life.currentLevel = 0;
+
+        life.loadLevel(life.currentLevel);
     },
 
     setGridSettingsUi(){
@@ -346,24 +355,31 @@ var life = {
         }
 
         if(document.getElementById(player.x + '-' + player.y).classList.contains('alive')){
-            loop.stop();
-
             document.getElementById(player.x + '-' + player.y).classList.add('engorged');
 
-            console.log("You Lose");
+            alert("You Lose");
+
+            life.loadLevel(life.currentLevel);
         }
 
-        resources.forEach(function(item, index, object){
-            if(item.x === player.x && item.y === player.y){
-                console.log('resource');
+        if(resources.length === 0){
+            alert('You Win')
 
-                object.splice(index, 1);
-                document.getElementById(item.x + "-" + item.y).classList.remove('resource');
+            life.currentLevel++;
+            life.loadLevel(life.currentLevel);
+        } else{
+            resources.forEach(function(item, index, object){
+                if(item.x === player.x && item.y === player.y){
+                    console.log('resource');
+    
+                    object.splice(index, 1);
+                    document.getElementById(item.x + "-" + item.y).classList.remove('resource');
+                }
+            });
+    
+            if(!settings.constantMovement){
+                controls.pressedKey = null;
             }
-        });
-
-        if(!settings.constantMovement){
-            controls.pressedKey = null;
         }
     },
 
@@ -487,6 +503,18 @@ var creatures = {
             [0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         ]
     },
+    eater: {
+        name: "Eater",
+        dynamic: true,
+        data: [
+            [1,1,0,0,0,0,0,0,0],
+            [1,1,0,0,0,1,0,0,0],
+            [0,0,0,0,1,0,1,0,0],
+            [0,0,0,0,0,1,0,1,0],
+            [0,0,0,0,0,0,0,1,0],
+            [0,0,0,0,0,0,0,1,1],
+        ]
+    },
 };
 
 var levels = [
@@ -530,6 +558,57 @@ var levels = [
                 x: 30,
                 y: 0
             }
+        ],
+        resources: [
+            {
+                x: 20,
+                y: 0
+            },
+            {
+                x: 7,
+                y: 11
+            },
+            {
+                x: 29,
+                y: 28
+            },
+            {
+                x: 11,
+                y: 3
+            },
+            {
+                x: 1,
+                y: 13
+            },
+            {
+                x: 34,
+                y: 8
+            },
+            {
+                x: 8,
+                y: 18
+            }
+        ],
+        player : {
+            x: 20,
+            y: 15
+        }
+    },
+    {
+        Name: "The Guns",
+        width:40,
+        height:30,
+        creatures: [
+            {
+                name: 'gun',
+                x: 0,
+                y: 0
+            },
+            {
+                name: 'eater',
+                x: 30,
+                y: 24
+            },
         ],
         resources: [
             {
