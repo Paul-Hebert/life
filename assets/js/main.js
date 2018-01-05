@@ -22,10 +22,13 @@ var grid = {
     html: ""
 };
 
-var player = {
-    x:0,
-    y:0
-}
+var player = null;
+
+// player is set when loading a level. Format is the following:
+//var player = {
+//    x:0,
+//    y:0
+//}
 
 var resources = [];
 
@@ -99,7 +102,9 @@ var loop = {
             
             life.updateGridData();
 
-            life.movePlayer();
+            if(player !== null){
+                life.movePlayer();
+            }
     
             life.renderGrid();
         }
@@ -393,6 +398,8 @@ var life = {
                 }
             }
         }
+
+        player = null;
 
         life.renderGrid();
         loop.start();
