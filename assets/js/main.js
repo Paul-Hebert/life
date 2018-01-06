@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 var settings = {
-    dev: true,
+    dev: false,
 
     rate: 200,
 
@@ -339,6 +339,8 @@ var life = {
     },
 
     movePlayer(){
+        utilities.devDebug("life.movePlayer");
+
         var pos = player.position;
 
         if(controls.pressedKey === "left"){
@@ -405,6 +407,8 @@ var life = {
             life.addCreature(creature.name, creature.x, creature.y);
         });
 
+        life.resources = [];
+
         level.resources.forEach(function(resource){
             life.addResource(resource);
         });
@@ -423,7 +427,6 @@ var life = {
 
         for(y = 0; y < height; y++){
             for(x = 0; x < width; x++){
-                console.log(x,y)
                 if(Math.random() > chance){
                     grid.data[y][x] = true;
                 }
