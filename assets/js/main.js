@@ -23,13 +23,10 @@ var grid = {
     html: ""
 };
 
-var player = null;
-
-// player is set when loading a level. Format is the following:
-//var player = {
-//    x:0,
-//    y:0
-//}
+var player = {
+    lives: 3,
+    points: 0
+}
 
 var resources = [];
 
@@ -299,7 +296,7 @@ var life = {
                 cell.classList.remove('player');
             });
 
-            document.getElementById(player.x + "-" + player.y).classList.add('player');
+            document.getElementById(player.position.x + "-" + player.position.y).classList.add('player');
         }
     },
 
@@ -343,24 +340,32 @@ var life = {
     },
 
     movePlayer(){
+        var pos = player.position;
+
         if(controls.pressedKey === "left"){
-            player.x = life.checkBounds(settings.width, player.x - 1);
+            pos.x = life.checkBounds(settings.width, pos.x - 1);
         } else if(controls.pressedKey === "right"){
-            player.x = life.checkBounds(settings.width, player.x + 1);
+            pos.x = life.checkBounds(settings.width, pos.x + 1);
         } else if(controls.pressedKey === "up"){
-            player.y = life.checkBounds(settings.height, player.y - 1);
+            pos.y = life.checkBounds(settings.height, pos.y - 1);
         }else if(controls.pressedKey === "down"){
-            player.y = life.checkBounds(settings.height, player.y + 1);
+            pos.y = life.checkBounds(settings.height, pos.y + 1);
         }
 
-        if(document.getElementById(player.x + '-' + player.y).classList.contains('alive')){
-            document.getElementById(player.x + '-' + player.y).classList.add('engorged');
+        if(document.getElementById(pos.x + '-' + pos.y).classList.contains('alive')){
+            document.getElementById(pos.x + '-' + pos.y).classList.add('engorged');
 
-            alert("You Lose");
+            player.lives --;
 
-            player = null;
-            loop.stop();
-            life.loadLevel(life.currentLevel);
+            if(player.lives > 0){
+                alert("You're Dead! " + player.lives + " lives left.");
+
+                loop.stop();
+                life.loadLevel(life.currentLevel);
+            } else{
+                alert("You lose!");
+                loop.stop();
+            }
         }
 
         if(resources.length === 0){
@@ -370,11 +375,17 @@ var life = {
             life.loadLevel(life.currentLevel);
         } else{
             resources.forEach(function(item, index, object){
-                if(item.x === player.x && item.y === player.y){
-                    console.log(item.type);
+                if(item.x === pos.x && item.y === pos.y){
+                    if(item.type === "life"){
+                        player.lives++;
+                        console.log("Life Gained: You have " + player.lives + " lives.")
+                    } else if(item.type === "point"){
+                        player.points++;
+                        console.log("Point Gained: You have " + player.points + " points.")
+                    }
     
                     object.splice(index, 1);
-                    document.getElementById(item.x + "-" + item.y).classList.remove('resource');
+                    document.getElementById(item.x + "-" + item.y).classList.remove('resource', item.type);
                 }
             });
     
@@ -399,7 +410,7 @@ var life = {
             life.addResource(resource);
         });
 
-        player = Object.assign({}, level.player);
+        player.position = Object.assign({}, level.playerPosition);
 
         life.renderGrid();
 
@@ -597,7 +608,7 @@ var levels = [
                 y: 18
             }
         ],
-        player : {
+        playerPosition : {
             x: 20,
             y: 15
         }
@@ -655,7 +666,7 @@ var levels = [
                 y: 18
             }
         ],
-        player : {
+        playerPosition : {
             x: 20,
             y: 15
         }
@@ -713,7 +724,7 @@ var levels = [
                 y: 18
             }
         ],
-        player : {
+        playerPosition : {
             x: 20,
             y: 15
         }
@@ -881,7 +892,7 @@ var levels = [
                 y: 18
             }
         ],
-        player : {
+        playerPosition : {
             x: 20,
             y: 15
         }
