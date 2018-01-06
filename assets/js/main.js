@@ -332,13 +332,10 @@ var life = {
         }
     },
 
-    addResource(x, y){
-        resources.push({
-            "x": x, 
-            "y": y
-        });
+    addResource(resource){
+        resources.push(Object.assign({}, resource));
 
-        document.getElementById(x + "-" + y).classList.add('resource');
+        document.getElementById(resource.x + "-" + resource.y).classList.add('resource', resource.type);
     },
 
     saveGrid(){
@@ -374,7 +371,7 @@ var life = {
         } else{
             resources.forEach(function(item, index, object){
                 if(item.x === player.x && item.y === player.y){
-                    console.log('resource');
+                    console.log(item.type);
     
                     object.splice(index, 1);
                     document.getElementById(item.x + "-" + item.y).classList.remove('resource');
@@ -399,12 +396,10 @@ var life = {
         });
 
         level.resources.forEach(function(resource){
-            life.addResource(resource.x, resource.y);
+            life.addResource(resource);
         });
-        
-        player = Object.assign({}, level.player);
 
-        console.log(player);
+        player = Object.assign({}, level.player);
 
         life.renderGrid();
 
@@ -567,30 +562,37 @@ var levels = [
         ],
         resources: [
             {
+                type:"point",
                 x: 20,
                 y: 0
             },
             {
+                type:"life",
                 x: 7,
                 y: 11
             },
             {
+                type:"point",
                 x: 29,
                 y: 28
             },
             {
+                type:"point",
                 x: 11,
                 y: 3
             },
             {
+                type:"life",
                 x: 1,
                 y: 13
             },
             {
+                type:"point",
                 x: 34,
                 y: 8
             },
             {
+                type:"point",
                 x: 8,
                 y: 18
             }
@@ -618,81 +620,37 @@ var levels = [
         ],
         resources: [
             {
+                type:"life",
                 x: 20,
                 y: 0
             },
             {
+                type:"point",
                 x: 7,
                 y: 11
             },
             {
+                type:"point",
                 x: 29,
                 y: 28
             },
             {
+                type:"point",
                 x: 11,
                 y: 3
             },
             {
+                type:"point",
                 x: 1,
                 y: 13
             },
             {
+                type:"life",
                 x: 34,
                 y: 8
             },
             {
-                x: 8,
-                y: 18
-            }
-        ],
-        player : {
-            x: 20,
-            y: 15
-        }
-    },
-    {
-        Name: "The Gliders",
-        width:40,
-        height:30,
-        creatures: [
-            {
-                name: 'glider',
-                x: 20,
-                y: 0
-            },
-            {
-                name: 'lightweightSpaceship',
-                x: 0,
-                y: 14
-            },
-        ],
-        resources: [
-            {
-                x: 20,
-                y: 0
-            },
-            {
-                x: 7,
-                y: 11
-            },
-            {
-                x: 29,
-                y: 28
-            },
-            {
-                x: 11,
-                y: 3
-            },
-            {
-                x: 1,
-                y: 13
-            },
-            {
-                x: 34,
-                y: 8
-            },
-            {
+                type:"point",
                 x: 8,
                 y: 18
             }
@@ -709,6 +667,64 @@ var levels = [
         creatures: [
             {
                 name: 'glider',
+                x: 20,
+                y: 0
+            },
+            {
+                name: 'lightweightSpaceship',
+                x: 0,
+                y: 14
+            },
+        ],
+        resources: [
+            {
+                type:"life",
+                x: 20,
+                y: 0
+            },
+            {
+                type:"life",
+                x: 7,
+                y: 11
+            },
+            {
+                type:"point",
+                x: 29,
+                y: 28
+            },
+            {
+                type:"point",
+                x: 11,
+                y: 3
+            },
+            {
+                type:"point",
+                x: 1,
+                y: 13
+            },
+            {
+                type:"point",
+                x: 34,
+                y: 8
+            },
+            {
+                type:"point",
+                x: 8,
+                y: 18
+            }
+        ],
+        player : {
+            x: 20,
+            y: 15
+        }
+    },
+    {
+        Name: "The Glider",
+        width:40,
+        height:30,
+        creatures: [
+            {
+                name: 'glider',
                 x: 0,
                 y: 0
             },
@@ -830,30 +846,37 @@ var levels = [
         ],
         resources: [
             {
+                type:"point",
                 x: 20,
                 y: 10
             },
             {
+                type:"point",
                 x: 7,
                 y: 21
             },
             {
+                type:"point",
                 x: 29,
                 y: 28
             },
             {
+                type:"point",
                 x: 11,
                 y: 3
             },
             {
+                type:"point",
                 x: 1,
                 y: 13
             },
             {
+                type:"life",
                 x: 34,
                 y: 8
             },
             {
+                type:"life",
                 x: 8,
                 y: 18
             }

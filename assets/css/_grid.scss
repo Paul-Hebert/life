@@ -6,7 +6,13 @@
     border-radius:50%;
 
     &.resource{
-        background:#838;
+        &.life{
+            background:#838;
+        }
+
+        &.point{
+            background:gold;
+        }
     }
 
     &.player{

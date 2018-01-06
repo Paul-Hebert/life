@@ -6,8 +6,12 @@
   border-radius: 50%;
 }
 
-.cell.resource {
+.cell.resource.life {
   background: #838;
+}
+
+.cell.resource.point {
+  background: gold;
 }
 
 .cell.player {
