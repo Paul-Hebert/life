@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 var settings = {
-    dev: false,
+    dev: true,
 
     rate: 200,
 
@@ -43,7 +43,11 @@ var ui = {
 
 var controls = {
     bindHandlers(){
-        window.addEventListener("keydown",function(e){
+        utilities.devDebug("controls.bindHandlers");
+
+        window.addEventListener("keydown", function(e){
+            utilities.devDebug("key pressed: " + controls.keyCodes[e.keyCode]);
+
             e.preventDefault();
 
             controls.pressedKey = controls.keyCodes[e.keyCode];
@@ -176,8 +180,6 @@ var life = {
 
             grid.data.push(row);
         }
-
-        utilities.devDebug(grid.data, true);
     },
 
     buildGridSkeleton(width, height){
@@ -269,11 +271,8 @@ var life = {
 
             tempGridData.push(row);
         }
-        
 
         grid.data = tempGridData;
-
-        utilities.devDebug(grid.data, true);
     },
 
     renderGrid(){
@@ -418,6 +417,8 @@ var life = {
     },
 
     loadRandomGrid(chance, width, height){
+        utilities.devDebug("life.loadRandomGrid");
+
         life.buildEmptyGrid(width, height);
 
         for(y = 0; y < height; y++){
