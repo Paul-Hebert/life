@@ -369,10 +369,11 @@ var life = {
             }
         }
 
-        if(resources.length === 0){
-            alert('You Win')
-
+        if(life.points === 0){
             life.currentLevel++;
+
+            alert('You Win! Loading Level ' + life.currentLevel + ".");
+
             life.loadLevel(life.currentLevel);
         } else{
             resources.forEach(function(item, index, object){
@@ -382,6 +383,7 @@ var life = {
                         console.log("Life Gained: You have " + player.lives + " lives.")
                     } else if(item.type === "point"){
                         player.points++;
+                        life.points--;
                         console.log("Point Gained: You have " + player.points + " points.")
                     }
     
@@ -408,9 +410,14 @@ var life = {
         });
 
         life.resources = [];
+        life.points = 0;
 
         level.resources.forEach(function(resource){
             life.addResource(resource);
+
+            if(resource.type === "point"){
+                life.points ++;
+            }
         });
 
         player.position = Object.assign({}, level.playerPosition);
