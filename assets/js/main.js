@@ -135,6 +135,8 @@ var life = {
     },
 
     startGame(){
+        utilities.devDebug('life.startGame');
+
         life.currentLevel = 0;
 
         life.loadLevel(life.currentLevel);
@@ -359,6 +361,8 @@ var life = {
 
             alert("You Lose");
 
+            player = null;
+            loop.stop();
             life.loadLevel(life.currentLevel);
         }
 
@@ -397,8 +401,10 @@ var life = {
         level.resources.forEach(function(resource){
             life.addResource(resource.x, resource.y);
         });
+        
+        player = Object.assign({}, level.player);
 
-        player = level.player;
+        console.log(player);
 
         life.renderGrid();
 
@@ -618,6 +624,218 @@ var levels = [
             {
                 x: 7,
                 y: 11
+            },
+            {
+                x: 29,
+                y: 28
+            },
+            {
+                x: 11,
+                y: 3
+            },
+            {
+                x: 1,
+                y: 13
+            },
+            {
+                x: 34,
+                y: 8
+            },
+            {
+                x: 8,
+                y: 18
+            }
+        ],
+        player : {
+            x: 20,
+            y: 15
+        }
+    },
+    {
+        Name: "The Gliders",
+        width:40,
+        height:30,
+        creatures: [
+            {
+                name: 'glider',
+                x: 20,
+                y: 0
+            },
+            {
+                name: 'lightweightSpaceship',
+                x: 0,
+                y: 14
+            },
+        ],
+        resources: [
+            {
+                x: 20,
+                y: 0
+            },
+            {
+                x: 7,
+                y: 11
+            },
+            {
+                x: 29,
+                y: 28
+            },
+            {
+                x: 11,
+                y: 3
+            },
+            {
+                x: 1,
+                y: 13
+            },
+            {
+                x: 34,
+                y: 8
+            },
+            {
+                x: 8,
+                y: 18
+            }
+        ],
+        player : {
+            x: 20,
+            y: 15
+        }
+    },
+    {
+        Name: "The Mix",
+        width:40,
+        height:30,
+        creatures: [
+            {
+                name: 'glider',
+                x: 0,
+                y: 0
+            },
+            {
+                name: 'glider',
+                x: 5,
+                y: 0
+            },
+            {
+                name: 'glider',
+                x: 10,
+                y: 0
+            },
+            {
+                name: 'glider',
+                x: 15,
+                y: 0
+            },
+            {
+                name: 'glider',
+                x: 20,
+                y: 0
+            },
+            {
+                name: 'glider',
+                x: 25,
+                y: 0
+            },
+            {
+                name: 'glider',
+                x: 30,
+                y: 0
+            },
+            {
+                name: 'glider',
+                x: 35,
+                y: 0
+            },
+            {
+                name: 'glider',
+                x: 0,
+                y: 0
+            },
+            {
+                name: 'glider',
+                x: 5,
+                y: 0
+            },
+            {
+                name: 'glider',
+                x: 10,
+                y: 0
+            },
+            {
+                name: 'glider',
+                x: 15,
+                y: 0
+            },
+            {
+                name: 'glider',
+                x: 20,
+                y: 0
+            },
+            {
+                name: 'glider',
+                x: 25,
+                y: 10
+            },
+            {
+                name: 'glider',
+                x: 30,
+                y: 10
+            },
+            {
+                name: 'glider',
+                x: 35,
+                y: 10
+            },
+            {
+                name: 'glider',
+                x: 0,
+                y: 20
+            },
+            {
+                name: 'glider',
+                x: 5,
+                y: 20
+            },
+            {
+                name: 'glider',
+                x: 10,
+                y: 20
+            },
+            {
+                name: 'glider',
+                x: 15,
+                y: 20
+            },
+            {
+                name: 'glider',
+                x: 20,
+                y: 20
+            },
+            {
+                name: 'glider',
+                x: 25,
+                y: 20
+            },
+            {
+                name: 'glider',
+                x: 30,
+                y: 20
+            },
+            {
+                name: 'glider',
+                x: 35,
+                y: 20
+            },
+        ],
+        resources: [
+            {
+                x: 20,
+                y: 10
+            },
+            {
+                x: 7,
+                y: 21
             },
             {
                 x: 29,

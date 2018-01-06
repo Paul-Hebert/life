@@ -3,6 +3,7 @@
     height:20px;
     border:1px solid #eee;
     display:inline-block;
+    border-radius:50%;
 
     &.resource{
         background:#838;
@@ -43,10 +44,6 @@
 
         .cell{
             border: 1px solid rgba(51, 51, 51, .05); // #333
-    
-            &.alive{
-                border-radius:50%;
-            }
         }
     }
 }
@@ -54,7 +51,6 @@
 .transition{
     .cell{
         transition:1000ms background-color;
-        border-radius:50%;
 
 
         &.player{
