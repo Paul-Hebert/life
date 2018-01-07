@@ -66,7 +66,7 @@ var life = {
 
         life.currentLevel = 0;
 
-        life.loadLevel(life.currentLevel);
+        levels.load(life.currentLevel);
     },
 
     setGridSettingsUi(){
@@ -302,7 +302,7 @@ var life = {
                 alert("You're Dead! " + player.lives + " lives left.");
 
                 loop.stop();
-                life.loadLevel(life.currentLevel);
+                levels.load(life.currentLevel);
             } else{
                 alert("You lose!");
                 loop.stop();
@@ -314,7 +314,7 @@ var life = {
 
             alert('You Win! Loading Level ' + life.currentLevel + ".");
 
-            life.loadLevel(life.currentLevel);
+            levels.load(life.currentLevel);
         } else{
             resources.forEach(function(item, index, object){
                 if(item.x === pos.x && item.y === pos.y){
@@ -336,35 +336,6 @@ var life = {
                 controls.pressedKey = null;
             }
         }
-    },
-
-    loadLevel(id){
-        utilities.devDebug('life.loadLevel');
-
-        var level = levels[id];
-
-        life.buildEmptyGrid(level.width, level.height);
-
-        level.creatures.forEach(function(creature){
-            life.addCreature(creature.name, creature.x, creature.y);
-        });
-
-        life.resources = [];
-        life.points = 0;
-
-        level.resources.forEach(function(resource){
-            life.addResource(resource);
-
-            if(resource.type === "point"){
-                life.points ++;
-            }
-        });
-
-        player.position = Object.assign({}, level.playerPosition);
-
-        life.renderGrid();
-
-        loop.start();
     },
 
     loadRandomGrid(chance, width, height){
