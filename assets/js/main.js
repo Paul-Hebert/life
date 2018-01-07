@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 var settings = {
-    dev: false,
+    dev: true,
 
     rate: 200,
 
@@ -452,15 +452,3 @@ var life = {
         return Math.random() > chance;
     },
 };
-
-var utilities = {
-    devDebug(message, table){
-        if(settings.dev){
-            if(table){
-                console.table(message);
-            } else{
-                console.log(message);                
-            }
-        }
-    }
-}
