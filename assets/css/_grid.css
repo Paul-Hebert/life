@@ -39,10 +39,12 @@
   font-size: 0;
 }
 
+/*************************************************************************/
+/*************************************************************************/
 .gooey .grid {
-  filter: url("#goo");
-  -moz-filter: url("#goo");
-  -webkit-filter: url("#goo");
+  filter: url("../svg-filters/gooey.svg#goo");
+  -moz-filter: url("../svg-filters/gooey.svg#goo");
+  -webkit-filter: url("../svg-filters/gooey.svg#goo");
 }
 
 .gooey .grid .cell {
@@ -60,4 +62,20 @@
 .hoveredEffects .cell:hover {
   background: #900;
   cursor: pointer;
+}
+
+.experimental .gridWrapper {
+  background: #cfe5e1;
+}
+
+.experimental .grid .row .cell {
+  border: none;
+}
+
+.experimental .grid .row .cell.alive {
+  background: #969;
+}
+
+.experimental .grid .row .point {
+  background: #f9f9f9;
 }

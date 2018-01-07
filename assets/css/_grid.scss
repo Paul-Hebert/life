@@ -41,12 +41,16 @@
     font-size:0;
 }
 
-// https://css-tricks.com/gooey-effect/
+/*************************************************************************/
+// Themes
+/*************************************************************************/
+
 .gooey{
     .grid{
-        filter: url('#goo');
-        -moz-filter: url('#goo');
-        -webkit-filter: url('#goo');
+        // https://css-tricks.com/gooey-effect/
+        filter: url('../svg-filters/gooey.svg#goo');
+        -moz-filter: url('../svg-filters/gooey.svg#goo');
+        -webkit-filter: url('../svg-filters/gooey.svg#goo');
 
         .cell{
             border: 1px solid rgba(51, 51, 51, .05); // #333
@@ -69,5 +73,28 @@
     .cell:hover{
         background:#900;
         cursor:pointer;
+    }
+}
+
+.experimental{
+    .gridWrapper{
+        background:#cfe5e1;
+    }
+    .grid{
+        .row{
+            .cell{
+                border: none;
+
+                &.alive{
+                    background:#969;
+                }
+            }
+
+            .point{
+                background:#f9f9f9;
+            }
+
+
+        }
     }
 }

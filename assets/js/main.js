@@ -15,7 +15,7 @@ var settings = {
 
     wrapGrid: true,
 
-    gridTheme: ["gooey", "transition"] // Other options: ["hoveredEffects"]
+    gridTheme: ["gooey", "transition", "experimental"] // Full options: ["hoveredEffects", "gooey", "transition", "experimental"]
 };
 
 var grid = {
@@ -659,7 +659,7 @@ var levels = [
             {
                 type:"point",
                 x: 11,
-                y: 3
+                y: 1
             },
             {
                 type:"point",
