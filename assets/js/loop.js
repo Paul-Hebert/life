@@ -8,9 +8,6 @@ var loop = {
     start(){
         utilities.devDebug('loop.start');
 
-        ui.stopLoopButton.style.display = "inline";
-        ui.startLoopButton.style.display = "none";
-
         loop.active = true;
 
         loop.now = null;
@@ -23,23 +20,36 @@ var loop = {
     stop(){
         utilities.devDebug('loop.stop');
 
-        ui.stopLoopButton.style.display = "none";
-        ui.startLoopButton.style.display = "inline";
-
         loop.active = false;
     },
 
+    toggle(){
+        utilities.devDebug('loop.toggle');
+
+        if(loop.active){
+            loop.stop();
+        } else{
+            loop.start();
+        }
+    },
+
     turn(){
+        if(controls.pressedKey === "space"){
+            loop.toggle();
+
+            controls.pressedKey = null;
+        }
+
         loop.now = loop.timestamp();
         loop.duration = loop.now - loop.last;
 
-        if(loop.duration >= settings.rate){
-            life.takeTurn();
+        if(loop.active){
+            if(loop.duration >= settings.rate){
+                life.takeTurn();
+            }
         }
 
-        if(loop.active){
-            requestAnimationFrame(loop.turn);
-        }
+        requestAnimationFrame(loop.turn);
     },
 
     timestamp() {

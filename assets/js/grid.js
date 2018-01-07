@@ -169,6 +169,25 @@ var grid = {
         document.getElementById(resource.x + "-" + resource.y).classList.add('resource', resource.type);
     },
 
+    loadRandom(chance, width, height){
+        utilities.devDebug("grid.loadRandom");
+
+        grid.buildEmpty(width, height);
+
+        for(y = 0; y < height; y++){
+            for(x = 0; x < width; x++){
+                if(Math.random() > chance){
+                    grid.data[y][x] = true;
+                }
+            }
+        }
+
+        player = null;
+
+        grid.render();
+        loop.start();
+    },
+
     checkBounds(max, number){
         if(settings.wrapGrid){
             if(number >= max){

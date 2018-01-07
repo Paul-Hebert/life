@@ -13,11 +13,6 @@ var player = {
 var resources = [];
 
 var ui = {
-    startLoopButton: document.getElementById('startLoop'),
-    stopLoopButton: document.getElementById('stopLoop'),
-
-    rateInput: document.getElementById('rate'),
-
     primaryGrid: document.getElementById('primaryGrid'),
 
     body: document.body
@@ -39,7 +34,8 @@ var controls = {
         "37": "left",
         "38": "up",
         "39": "right",
-        "40": "down"
+        "40": "down",
+        "32": "space"
     },
     pressedKey: null
 }
@@ -50,12 +46,11 @@ var life = {
     init(){
         utilities.devDebug('life.init');
 
-        life.setGridSettingsUi();
-
-        ui.startLoopButton.addEventListener('click', function() { loop.start(); });
-        ui.stopLoopButton.addEventListener('click', function() { loop.stop(); });
-
         controls.bindHandlers();
+
+        settings.gridTheme.forEach(function(theme){
+            ui.body.classList.add(theme);
+        });
     },
 
     startGame(){
@@ -64,22 +59,6 @@ var life = {
         life.currentLevel = 0;
 
         levels.load(life.currentLevel);
-    },
-
-    setGridSettingsUi(){
-        utilities.devDebug('life.getGridSettings');
-
-        ui.rateInput.value = settings.rate;
-
-        settings.gridTheme.forEach(function(theme){
-            ui.body.classList.add(theme);
-        });
-    },
-
-    getGridSettings(){
-        utilities.devDebug('life.getGridSettings');
-
-        settings.rate = ui.rateInput.value;
     },
 
     takeTurn(){
