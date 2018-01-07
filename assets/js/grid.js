@@ -1,11 +1,11 @@
 var grid = {
     data: [],
-    html: "",
     buildEmpty(width, height){
-        utilities.devDebug('grid.buildEmptyGrid');
+        utilities.devDebug('grid.buildEmpty');
 
         grid.buildData(width, height);
-        grid.buildSkeleton(width, height);
+        ui.dynamicGrid.innerHTML = grid.buildSkeleton(width, height, "dynamic");
+        ui.staticGrid.innerHTML = grid.buildSkeleton(width, height, "static");
     },
 
     buildData(width, height){
@@ -25,36 +25,24 @@ var grid = {
     },
 
 
-    buildSkeleton(width, height){
+    buildSkeleton(width, height, identifier){
         utilities.devDebug('grid.buildSkeleton');
 
-        grid.html = "";
+        var tempHtml = "";
 
         for(var y = 0; y < height; y++){
             var row = "<div class='row'>";
 
             for(var x = 0; x < width; x++){
-                row += "<span class='cell' id='" + x + "-" + y + "'></span>";
+                row += "<span class='cell' id='" + identifier + "-" + x + "-" + y + "'></span>";
             }
 
             row += "</div>";
 
-            grid.html += row;
+            tempHtml += row;
         }
 
-        ui.primaryGrid.innerHTML = grid.html;
-
-        document.querySelectorAll('.cell').forEach(function(cell){
-            cell.addEventListener('click', function() { 
-                var id = cell.id.split("-");
-                var x = id[0];
-                var y = id[1];
-
-                grid.data[y][x] = !grid.data[y][x];
-
-                grid.render();
-            });
-        });
+        return tempHtml;
     },
 
     updateData(){
@@ -127,7 +115,7 @@ var grid = {
 
         for(var y = 0; y < grid.data.length; y++){
             for(var x = 0; x < grid.data[0].length; x++){
-                var cell = document.getElementById(x + "-" + y);
+                var cell = document.getElementById("dynamic-" + x + "-" + y);
 
                 if(grid.data[y][x]){
                     cell.classList.add('alive');
@@ -142,7 +130,7 @@ var grid = {
                 cell.classList.remove('player');
             });
 
-            document.getElementById(player.position.x + "-" + player.position.y).classList.add('player');
+            document.getElementById("dynamic-" + player.position.x + "-" + player.position.y).classList.add('player');
         }
     },
 
@@ -166,7 +154,7 @@ var grid = {
     addResource(resource){
         resources.push(Object.assign({}, resource));
 
-        document.getElementById(resource.x + "-" + resource.y).classList.add('resource', resource.type);
+        document.getElementById("static-" + resource.x + "-" + resource.y).classList.add('resource', resource.type);
     },
 
     loadRandom(chance, width, height){

@@ -1,3 +1,7 @@
+.grid.static{
+    position:absolute;
+}
+
 .cell{
     width:20px;
     height:20px;
@@ -50,7 +54,7 @@
 /*************************************************************************/
 
 .gooey{
-    .grid{
+    .dynamic{
         // https://css-tricks.com/gooey-effect/
         filter: url('../svg-filters/gooey.svg#goo');
         -moz-filter: url('../svg-filters/gooey.svg#goo');

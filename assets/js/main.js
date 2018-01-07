@@ -13,7 +13,8 @@ var player = {
 var resources = [];
 
 var ui = {
-    primaryGrid: document.getElementById('primaryGrid'),
+    dynamicGrid: document.getElementById('dynamicGrid'),
+    staticGrid: document.getElementById('staticGrid'),
 
     body: document.body
 };
@@ -90,9 +91,7 @@ var life = {
             pos.y = grid.checkBounds(settings.height, pos.y + 1);
         }
 
-        if(document.getElementById(pos.x + '-' + pos.y).classList.contains('alive')){
-            document.getElementById(pos.x + '-' + pos.y).classList.add('engorged');
-
+        if(grid.data[pos.y][pos.x]){
             player.lives --;
 
             if(player.lives > 0){
@@ -125,7 +124,7 @@ var life = {
                     }
     
                     object.splice(index, 1);
-                    document.getElementById(item.x + "-" + item.y).classList.remove('resource', item.type);
+                    document.getElementById("static-" + item.x + "-" + item.y).classList.remove('resource', item.type);
                 }
             });
     
