@@ -4,17 +4,17 @@ var levels = {
 
         var level = levels.data[id];
 
-        life.buildEmptyGrid(level.width, level.height);
+        grid.buildEmpty(level.width, level.height);
 
         level.creatures.forEach(function(creature){
-            life.addCreature(creature.name, creature.x, creature.y);
+            grid.addCreature(creature.name, creature.x, creature.y);
         });
 
         life.resources = [];
         life.points = 0;
 
         level.resources.forEach(function(resource){
-            life.addResource(resource);
+            grid.addResource(resource);
 
             if(resource.type === "point"){
                 life.points ++;
@@ -23,7 +23,7 @@ var levels = {
 
         player.position = Object.assign({}, level.playerPosition);
 
-        life.renderGrid();
+        grid.render();
 
         loop.start();
     },
