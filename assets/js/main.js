@@ -312,7 +312,7 @@ var life = {
         if(life.points === 0){
             life.currentLevel++;
 
-            alert('You Win! Loading Level ' + life.currentLevel + ".");
+            alert('You Win! Loading Level ' + (life.currentLevel + 1) + ".");
 
             levels.load(life.currentLevel);
         } else{
