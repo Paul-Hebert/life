@@ -1,7 +1,7 @@
 var settings = {
     dev: false,
 
-    rate: 200,
+    rate: 175,
 
     constantMovement: true,
 

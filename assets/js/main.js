@@ -108,9 +108,16 @@ var life = {
         if(life.points === 0){
             life.currentLevel++;
 
-            alert('You Win! Loading Level ' + (life.currentLevel + 1) + ".");
+            if(life.currentLevel > levels.data.length){
+                alert('You Win! No More levels!');
 
-            levels.load(life.currentLevel);
+                loop.stop();
+
+            } else{
+                alert('You Win! Loading Level ' + (life.currentLevel + 1) + ".");
+
+                levels.load(life.currentLevel);
+            }
         } else{
             resources.forEach(function(item, index, object){
                 if(item.x === pos.x && item.y === pos.y){
@@ -120,7 +127,7 @@ var life = {
                     } else if(item.type === "point"){
                         player.points++;
                         life.points--;
-                        console.log("Point Gained: You have " + player.points + " points.")
+                        console.log("Point Gained: You have " + player.points + " points. There are " + life.points + " points left.")
                     }
     
                     object.splice(index, 1);
