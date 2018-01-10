@@ -84,7 +84,7 @@ var life = {
         if(life.points === 0){
             life.currentLevel++;
 
-            if(life.currentLevel > levels.data.length){
+            if(life.currentLevel >= levels.data.length){
                 alert('You Win! No More levels!');
 
                 loop.stop();
