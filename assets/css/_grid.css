@@ -32,10 +32,12 @@
 
 .resource.life * {
   fill: #23681c;
+  stroke: #0595d8;
 }
 
 .resource.point * {
   fill: gold;
+  stroke: #5d8b83;
 }
 
 .grid * {
