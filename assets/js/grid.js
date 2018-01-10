@@ -157,6 +157,12 @@ var grid = {
         document.getElementById("static-" + resource.x + "-" + resource.y).classList.add('resource', resource.type);
     },
 
+    addObstacle(resource){
+        resources.push(Object.assign({}, resource));
+
+        document.getElementById("static-" + resource.x + "-" + resource.y).classList.add('resource', resource.type);
+    },
+
     loadRandom(chance, width, height){
         utilities.devDebug("grid.loadRandom");
 

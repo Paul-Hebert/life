@@ -106,6 +106,29 @@ var levels = {
                     y: 18
                 }
             ],
+            obstacles: [
+                {
+                    type : "",
+                    cells: [
+                        {
+                            x:10,
+                            y:5
+                        },
+                        {
+                            x:10,
+                            y:6
+                        },
+                        {
+                            x:10,
+                            y:7
+                        },
+                        {
+                            x:11,
+                            y:8
+                        }
+                    ]
+                }
+            ],
             playerPosition : {
                 x: 20,
                 y: 15

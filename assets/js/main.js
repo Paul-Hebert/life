@@ -3,8 +3,6 @@ document.addEventListener("DOMContentLoaded", function() {
     life.startGame();
 });
 
-
-
 var player = {
     lives: 3,
     points: 0
@@ -18,28 +16,6 @@ var ui = {
 
     body: document.body
 };
-
-var controls = {
-    bindHandlers(){
-        utilities.devDebug("controls.bindHandlers");
-
-        window.addEventListener("keydown", function(e){
-            utilities.devDebug("key pressed: " + controls.keyCodes[e.keyCode]);
-
-            e.preventDefault();
-
-            controls.pressedKey = controls.keyCodes[e.keyCode];
-        });
-    },
-    keyCodes: {
-        "37": "left",
-        "38": "up",
-        "39": "right",
-        "40": "down",
-        "32": "space"
-    },
-    pressedKey: null
-}
 
 var life = {
     currentLevel: 0,
