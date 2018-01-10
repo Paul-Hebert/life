@@ -107,7 +107,7 @@ var life = {
                     }
     
                     object.splice(index, 1);
-                    document.getElementById("static-" + item.x + "-" + item.y).classList.remove('resource', item.type);
+                    document.getElementById("static-" + item.x + "-" + item.y).innerHTML = "";
                 }
             });
     

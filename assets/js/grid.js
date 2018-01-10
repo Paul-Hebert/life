@@ -154,13 +154,7 @@ var grid = {
     addResource(resource){
         resources.push(Object.assign({}, resource));
 
-        document.getElementById("static-" + resource.x + "-" + resource.y).classList.add('resource', resource.type);
-    },
-
-    addObstacle(resource){
-        resources.push(Object.assign({}, resource));
-
-        document.getElementById("static-" + resource.x + "-" + resource.y).classList.add('resource', resource.type);
+        document.getElementById("static-" + resource.x + "-" + resource.y).innerHTML = svgGeneration.generate(resource.type, 20, 20);
     },
 
     loadRandom(chance, width, height){

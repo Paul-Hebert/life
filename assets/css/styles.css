@@ -10,14 +10,6 @@
   border-radius: 50%;
 }
 
-.cell.resource.life {
-  background: #838;
-}
-
-.cell.resource.point {
-  background: gold;
-}
-
 .cell.player {
   background: #d00;
 }
@@ -36,6 +28,14 @@
   height: 30px;
   margin-top: -5px;
   margin-bottom: -5px;
+}
+
+.resource.life * {
+  fill: #23681c;
+}
+
+.resource.point * {
+  fill: gold;
 }
 
 .grid * {
@@ -82,10 +82,6 @@
 
 .experimental .grid .row .cell.alive {
   background: #969;
-}
-
-.experimental .grid .row .point {
-  background: #f9f9f9;
 }
 
 #stopLoop {

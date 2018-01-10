@@ -9,16 +9,6 @@
     display:inline-block;
     border-radius:50%;
 
-    &.resource{
-        &.life{
-            background:#838;
-        }
-
-        &.point{
-            background:gold;
-        }
-    }
-
     &.player{
         background:#d00;
     }
@@ -37,6 +27,16 @@
         height:30px;
         margin-top:-5px;
         margin-bottom:-5px;
+    }
+}
+
+.resource{
+    &.life *{
+        fill:rgb(35, 104, 28);
+    }
+
+    &.point *{
+        fill:gold;
     }
 }
 
@@ -97,12 +97,6 @@
                     background:#969;
                 }
             }
-
-            .point{
-                background:#f9f9f9;
-            }
-
-
         }
     }
 }
