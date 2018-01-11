@@ -10,14 +10,14 @@ var levels = {
             grid.addCreature(creature.name, creature.x, creature.y);
         });
 
-        life.resources = [];
-        life.points = 0;
+        resources = [];
+        levels.points = 0;
 
         level.resources.forEach(function(resource){
             grid.addResource(resource);
 
             if(resource.type === "point"){
-                life.points ++;
+                levels.points ++;
             }
         });
 

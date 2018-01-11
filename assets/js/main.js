@@ -29,7 +29,7 @@ var player = {
         },
         points(){
             ui.pointsObtained.innerHTML = player.points;
-            ui.totalPoints.innerHTML = player.points + life.points;
+            ui.totalPoints.innerHTML = levels.points;
         }
     }
 }
@@ -112,7 +112,9 @@ var life = {
             }
         }
 
-        if(life.points === 0){
+        console.log('move')
+
+        if(player.points === levels.points){
             life.currentLevel++;
 
             if(life.currentLevel >= levels.data.length){
@@ -133,10 +135,9 @@ var life = {
                         console.log("Life Gained: You have " + player.lives + " lives.")
                     } else if(item.type === "point"){
                         player.points++;
-                        life.points--;
-                        player.renderData.points();
+                        player.renderData.points();        
                         
-                        console.log("Point Gained: You have " + player.points + " points. There are " + life.points + " points left.")
+                        console.log('point');
                     }
     
                     object.splice(index, 1);
