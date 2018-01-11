@@ -5,7 +5,33 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var player = {
     lives: 3,
-    points: 0
+    points: 0,
+    reset(position){
+        player.position = Object.assign({}, position);
+        player.points = 0;
+        player.renderData.all();
+    },
+    loseLife(){
+        player.lives--;
+        player.renderData.lives();
+    },
+    gainLife(){
+        player.lives++;
+        player.renderData.lives();
+    },
+    renderData:{
+        all(){
+            player.renderData.lives();
+            player.renderData.points();
+        },
+        lives(){
+            ui.lives.innerHTML = player.lives;
+        },
+        points(){
+            ui.pointsObtained.innerHTML = player.points;
+            ui.totalPoints.innerHTML = player.points + life.points;
+        }
+    }
 }
 
 var resources = [];
@@ -13,6 +39,11 @@ var resources = [];
 var ui = {
     dynamicGrid: document.getElementById('dynamicGrid'),
     staticGrid: document.getElementById('staticGrid'),
+
+    lives: document.getElementById('lives'),
+
+    pointsObtained: document.getElementById('pointsObtained'),
+    totalPoints: document.getElementById('totalPoints'),
 
     body: document.body
 };
@@ -68,7 +99,7 @@ var life = {
         }
 
         if(grid.data[pos.y][pos.x]){
-            player.lives --;
+            player.loseLife()
 
             if(player.lives > 0){
                 alert("You're Dead! " + player.lives + " lives left.");
@@ -98,11 +129,13 @@ var life = {
             resources.forEach(function(item, index, object){
                 if(item.x === pos.x && item.y === pos.y){
                     if(item.type === "life"){
-                        player.lives++;
+                        player.gainLife();
                         console.log("Life Gained: You have " + player.lives + " lives.")
                     } else if(item.type === "point"){
                         player.points++;
                         life.points--;
+                        player.renderData.points();
+                        
                         console.log("Point Gained: You have " + player.points + " points. There are " + life.points + " points left.")
                     }
     

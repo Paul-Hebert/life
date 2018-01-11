@@ -21,7 +21,7 @@ var levels = {
             }
         });
 
-        player.position = Object.assign({}, level.playerPosition);
+        player.reset(level.playerPosition);
 
         grid.render();
 

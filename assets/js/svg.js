@@ -50,8 +50,8 @@ var svg = {
             size:1,
             points:50,
             distance: {
-                base: 0,
-                variance: 1.5
+                base: .1,
+                variance:1.5
             }
         },
         point: {
@@ -60,7 +60,7 @@ var svg = {
             points:25,
             distance: {
                 base: 0.3,
-                variance: 1
+                variance: 1.5
             }
         }
     }
