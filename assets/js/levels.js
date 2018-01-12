@@ -14,11 +14,19 @@ var levels = {
         levels.points = 0;
 
         level.resources.forEach(function(resource){
-            grid.addResource(resource);
+            grid.addObject(resource);
+            resources.push(Object.assign({}, resource));
 
             if(resource.type === "point"){
                 levels.points ++;
             }
+        });
+
+        obstacles = [];
+
+        level.obstacles.forEach(function(obstacle){
+            grid.addObject(obstacle);
+            obstacles.push(Object.assign({}, obstacle));
         });
 
         player.reset(level.playerPosition);
@@ -28,6 +36,54 @@ var levels = {
         loop.start();
     },
     data: [
+        {
+            Name: "The Pulsar",
+            width:30,
+            height:30,
+            creatures: [
+                {
+                    name: 'pulsar',
+                    x: 13,
+                    y: 13
+                },
+            ],
+            resources: [
+                {
+                    type:"point",
+                    x: 19,
+                    y: 19
+                }
+            ],
+            obstacles: [],
+            playerPosition : {
+                x: 1,
+                y: 1
+            }
+        },
+        {
+            Name: "The Toad",
+            width:30,
+            height:30,
+            creatures: [
+                {
+                    name: 'toad',
+                    x: 13,
+                    y: 13
+                },
+            ],
+            resources: [
+                {
+                    type:"point",
+                    x: 19,
+                    y: 19
+                }
+            ],
+            obstacles: [],
+            playerPosition : {
+                x: 1,
+                y: 1
+            }
+        },
         {
             Name: "The Beginning",
             width:40,
@@ -104,30 +160,49 @@ var levels = {
                     type:"point",
                     x: 8,
                     y: 18
+                },
+                {
+                    type:"point",
+                    x: 11,
+                    y: 7
                 }
             ],
             obstacles: [
                 {
-                    type : "",
-                    cells: [
-                        {
-                            x:10,
-                            y:5
-                        },
-                        {
-                            x:10,
-                            y:6
-                        },
-                        {
-                            x:10,
-                            y:7
-                        },
-                        {
-                            x:11,
-                            y:8
-                        }
-                    ]
-                }
+                    type : "rock",
+                    x:10,
+                    y:6
+                },
+                {
+                    type : "rock",
+                    x:10,
+                    y:7
+                },
+                {
+                    type : "rock",
+                    x:10,
+                    y:8
+                },
+                {
+                    type : "rock",
+                    x:11,
+                    y:6
+                },
+                {
+                    type : "rock",
+                    x:12,
+                    y:6
+                },
+                {
+                    type : "rock",
+                    x:11,
+                    y:8
+                },
+                {
+                    type : "rock",
+                    x:12,
+                    y:8
+                },
             ],
             playerPosition : {
                 x: 20,
@@ -187,6 +262,7 @@ var levels = {
                     y: 18
                 }
             ],
+            obstacles: [],
             playerPosition : {
                 x: 20,
                 y: 15
@@ -245,6 +321,7 @@ var levels = {
                     y: 18
                 }
             ],
+            obstacles: [],
             playerPosition : {
                 x: 20,
                 y: 15
@@ -413,6 +490,7 @@ var levels = {
                     y: 18
                 }
             ],
+            obstacles: [],
             playerPosition : {
                 x: 20,
                 y: 15

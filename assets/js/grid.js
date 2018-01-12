@@ -151,10 +151,8 @@ var grid = {
         }
     },
 
-    addResource(resource){
-        resources.push(Object.assign({}, resource));
-
-        document.getElementById("static-" + resource.x + "-" + resource.y).innerHTML = svg.generate(resource.type, 20, 20);
+    addObject(object){
+        document.getElementById("static-" + object.x + "-" + object.y).innerHTML = svg.generate(object.type, 20, 20);
     },
 
     loadRandom(chance, width, height){

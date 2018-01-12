@@ -62,6 +62,15 @@ var svg = {
                 base: 0.3,
                 variance: 1.5
             }
+        },
+        rock: {
+            classes: "obstacle rock",
+            size:1,
+            points:50,
+            distance: {
+                base: 0.7,
+                variance: 3
+            }
         }
     }
 }
