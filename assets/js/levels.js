@@ -36,54 +36,7 @@ var levels = {
         loop.start();
     },
     data: [
-        {
-            Name: "The Pulsar",
-            width:30,
-            height:30,
-            creatures: [
-                {
-                    name: 'pulsar',
-                    x: 13,
-                    y: 13
-                },
-            ],
-            resources: [
-                {
-                    type:"point",
-                    x: 19,
-                    y: 19
-                }
-            ],
-            obstacles: [],
-            playerPosition : {
-                x: 1,
-                y: 1
-            }
-        },
-        {
-            Name: "The Toad",
-            width:30,
-            height:30,
-            creatures: [
-                {
-                    name: 'toad',
-                    x: 13,
-                    y: 13
-                },
-            ],
-            resources: [
-                {
-                    type:"point",
-                    x: 19,
-                    y: 19
-                }
-            ],
-            obstacles: [],
-            playerPosition : {
-                x: 1,
-                y: 1
-            }
-        },
+
         {
             Name: "The Beginning",
             width:40,
@@ -207,6 +160,54 @@ var levels = {
             playerPosition : {
                 x: 20,
                 y: 15
+            }
+        },
+        {
+            Name: "The Pulsar",
+            width:30,
+            height:30,
+            creatures: [
+                {
+                    name: 'pulsar',
+                    x: 13,
+                    y: 13
+                },
+            ],
+            resources: [
+                {
+                    type:"point",
+                    x: 19,
+                    y: 19
+                }
+            ],
+            obstacles: [],
+            playerPosition : {
+                x: 1,
+                y: 1
+            }
+        },
+        {
+            Name: "The Toad",
+            width:30,
+            height:30,
+            creatures: [
+                {
+                    name: 'toad',
+                    x: 13,
+                    y: 13
+                },
+            ],
+            resources: [
+                {
+                    type:"point",
+                    x: 19,
+                    y: 19
+                }
+            ],
+            obstacles: [],
+            playerPosition : {
+                x: 1,
+                y: 1
             }
         },
         {
