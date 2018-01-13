@@ -5,9 +5,7 @@
 .cell{
     width:20px;
     height:20px;
-    border:1px solid #eee;
     display:inline-block;
-    border-radius:50%;
 
     &.player{
         background:#d00;
@@ -15,19 +13,11 @@
 
     &.alive{
         background:#333;
-
-        &.engorged{
-            background:#933;
-            border-color:#933;
-        }
     }
+}
 
-    &.engorged{
-        width:30px;
-        height:30px;
-        margin-top:-5px;
-        margin-bottom:-5px;
-    }
+.dynamic .cell{
+    border-radius:50%;
 }
 
 .resource{
@@ -55,16 +45,20 @@
 // Themes
 /*************************************************************************/
 
+.gridBuilder{
+    .static{
+        .cell{
+            border:1px solid #ccc;
+        }
+    }
+}
+
 .gooey{
     .dynamic{
         // https://css-tricks.com/gooey-effect/
         filter: url('../svg-filters/gooey.svg#goo');
         -moz-filter: url('../svg-filters/gooey.svg#goo');
         -webkit-filter: url('../svg-filters/gooey.svg#goo');
-
-        .cell{
-            border: 1px solid rgba(51, 51, 51, .05); // #333
-        }
     }
 }
 
@@ -93,8 +87,6 @@
     .grid{
         .row{
             .cell{
-                border: none;
-
                 &.alive{
                     background:#969;
                 }

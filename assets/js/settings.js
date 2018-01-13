@@ -10,5 +10,5 @@ var settings = {
 
     wrapGrid: true,
 
-    gridTheme: ["gooey", "transition", "experimental"] // Full options: ["hoveredEffects", "gooey", "transition", "experimental"]
+    gridTheme: ["gooey", "transition", "experimental"] // Full options: ["hoveredEffects", "gooey", "transition", "experimental", "resourceAnimation"]
 };

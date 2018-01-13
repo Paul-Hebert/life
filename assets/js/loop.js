@@ -34,7 +34,9 @@ var loop = {
     },
 
     turn(){
+        utilities.devDebug('loop.turn');
         if(controls.pressedKey === "space"){
+            console.log('toggle')
             loop.toggle();
 
             controls.pressedKey = null;

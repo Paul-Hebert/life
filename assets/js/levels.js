@@ -6,6 +6,11 @@ var levels = {
 
         grid.buildEmpty(level.width, level.height);
 
+        level.cells.forEach(function(creature){
+            grid.addCell(creature.x, creature.y);
+        });
+
+
         level.creatures.forEach(function(creature){
             grid.addCreature(creature.name, creature.x, creature.y);
         });
@@ -35,12 +40,88 @@ var levels = {
 
         loop.start();
     },
+    builder: {
+        currentAction(){},
+        open(width, height){
+            loop.stop();
+            grid.buildEmpty(width, height);
+            levels.builder.currentAction = levels.builder.toggleCell.bind({});
+
+            ui.dynamicGrid.querySelectorAll('.cell').forEach(function(cell){
+                cell.addEventListener('click', function(){
+                    var meta = this.id.split('-');
+
+                    var x = meta[1];
+                    var y = meta[2];
+                    
+                    levels.builder.currentAction(x, y);
+
+                    grid.render();
+                });
+            });
+
+            ui.body.classList.add('gridBuilder');
+
+            menus.levelBuilderMenu.build();
+
+            loop.start();
+            loop.stop();
+        },
+        toggleCell(x, y){
+            grid.data[y][x] = grid.data[y][x] ? false : true; 
+        },
+        togglePoint(x, y){
+            utilities.devDebug('levels.builder.togglePoint');
+
+            levels.builder.toggleResource(x, y, 'point');
+        },
+        toggleLife(x, y){
+            utilities.devDebug('levels.builder.toggleLife');
+            levels.builder.toggleResource(x, y, 'life');
+        },
+        toggleResource(x, y, type){
+            var populated = false;
+
+            resources.forEach(function(item, index, object){
+                if(item.x === x && item.y === y){
+                    populated = true;
+                    object.splice(index, 1);
+                    document.getElementById("static-" + item.x + "-" + item.y).innerHTML = "";
+                }
+            });
+            
+            if(!populated){
+                var resource = {
+                    type: type,
+                    x: x,
+                    y: y
+                }
+                grid.addObject(resource);
+
+                resources.push(Object.assign({}, resource));
+            }
+        }
+    },
     data: [
 
         {
-            Name: "The Beginning",
+            name: "The Beginning",
             width:40,
             height:30,
+            cells: [
+                    {
+                    x: 0,
+                    y: 11
+                },
+                {
+                    x: 0,
+                    y: 12
+                },
+                {
+                    x: 0,
+                    y: 13
+                },
+            ],
             creatures: [
                 {
                     name: 'glider',
@@ -163,9 +244,10 @@ var levels = {
             }
         },
         {
-            Name: "The Pulsar",
+            name: "The Pulsar",
             width:30,
             height:30,
+            cells: [],
             creatures: [
                 {
                     name: 'pulsar',
@@ -187,9 +269,10 @@ var levels = {
             }
         },
         {
-            Name: "The Toad",
+            name: "The Toad",
             width:30,
             height:30,
+            cells: [],
             creatures: [
                 {
                     name: 'toad',
@@ -211,9 +294,10 @@ var levels = {
             }
         },
         {
-            Name: "The Guns",
+            name: "The Guns",
             width:40,
             height:30,
+            cells: [],
             creatures: [
                 {
                     name: 'gun',
@@ -270,9 +354,10 @@ var levels = {
             }
         },
         {
-            Name: "The Mix",
+            name: "The Mix",
             width:40,
             height:30,
+            cells: [],
             creatures: [
                 {
                     name: 'glider',
@@ -329,9 +414,10 @@ var levels = {
             }
         },
         {
-            Name: "The Glider",
+            name: "The Glider",
             width:40,
             height:30,
+            cells: [],
             creatures: [
                 {
                     name: 'glider',

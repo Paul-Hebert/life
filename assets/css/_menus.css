@@ -1,0 +1,14 @@
+.menu {
+  text-align: center;
+  width: 100%;
+}
+
+.menu button {
+  display: block;
+  padding: 10px;
+  background: #a377cc;
+  border: none;
+  border-radius: 15px;
+  width: 350px;
+  margin-bottom: 10px;
+}

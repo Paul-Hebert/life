@@ -26,7 +26,7 @@ var grid = {
 
 
     buildSkeleton(width, height, identifier){
-        utilities.devDebug('grid.buildSkeleton');
+        utilities.devDebug('grid.buildSkeleton: ' + identifier);
 
         var tempHtml = "";
 
@@ -125,7 +125,7 @@ var grid = {
             }
         }
 
-        if(player !== null){
+        if(typeof player.position !== "undefined"){
             document.querySelectorAll('.player').forEach(function(cell){
                 cell.classList.remove('player');
             });
@@ -151,7 +151,13 @@ var grid = {
         }
     },
 
+    addCell(x,y){
+        grid.data[y][x] = true;
+    },
+
     addObject(object){
+        utilities.devDebug('grid.addObject');
+
         document.getElementById("static-" + object.x + "-" + object.y).innerHTML = svg.generate(object.type, 20, 20);
     },
 
