@@ -49,6 +49,11 @@
     .static{
         .cell{
             border:1px solid #ccc;
+            position:relative;
+
+            svg{
+                position:absolute;
+            }
         }
     }
 }
@@ -64,7 +69,7 @@
 
 .transition{
     .cell{
-        transition:1000ms background-color;
+        transition:500ms background-color;
 
 
         &.player{

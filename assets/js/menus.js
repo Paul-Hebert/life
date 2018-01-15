@@ -24,24 +24,46 @@ var menus = {
         build(){
             var menuHtml = "";
 
-            menus.addButton(ui.levelBuilderMenu, "Toggle Dot", "", "toggleDotButton", false, function(){
-                levels.builder.currentAction = levels.builder.toggleCell.bind({});
+            menus.addButton(ui.levelBuilderMenu, "Add Cell", "", "addCellButton", false, function(){
+                levels.builder.currentAction = levels.builder.addCell.bind({});
             });
 
-            menus.addButton(ui.levelBuilderMenu, "Toggle Point", "", "togglePoint", false, function(){
-                levels.builder.currentAction = levels.builder.togglePoint.bind({});
+            menus.addButton(ui.levelBuilderMenu, "Add Point", "", "addPoint", false, function(){
+                levels.builder.currentAction = levels.builder.addPoint.bind({});
             });
 
-            menus.addButton(ui.levelBuilderMenu, "Toggle Life", "", "toggleLife", false, function(){
-                levels.builder.currentAction = levels.builder.toggleLife.bind({});
+            menus.addButton(ui.levelBuilderMenu, "Add Life", "", "addLife", false, function(){
+                levels.builder.currentAction = levels.builder.addLife.bind({});
+            });
+
+            menus.addButton(ui.levelBuilderMenu, "Add Rock", "", "addRock", false, function(){
+                levels.builder.currentAction = levels.builder.addRock.bind({});
+            });
+
+            menus.addButton(ui.levelBuilderMenu, "Add Creature", "", "addCreature", false, function(){
+                levels.builder.currentAction = levels.builder.addCreature.bind({});
+            });
+
+            var creatureKeys = Object.keys(creatures);
+
+            var creatureOptions = [];
+
+            creatureKeys.forEach(creatureKey => {
+                creatureOptions.push({
+                    value: creatureKey,
+                    text: creatures[creatureKey].name
+                });
+            });
+
+            menus.addDropdown(ui.levelBuilderMenu, creatureOptions, "", "creatureOptions", function(value){
+                levels.builder.currentCreature = value;
             });
         }
     },
 
     addButton(parent, text, classes, id,  closeParent, callback){
-        var button = "<button class='" + classes + "' id='" + classes + "'>" + text + "</button>";
-
         var button = document.createElement('button');
+
         button.classList = classes;
         button.id = id;
         button.innerHTML = text;
@@ -54,5 +76,26 @@ var menus = {
         });
 
         parent.appendChild(button);
+    },
+
+    addDropdown(parent, options, classes, id, callback){
+        var select = document.createElement('select');
+
+        select.classList = classes;
+        select.id = id;
+        select.addEventListener('change', function(){
+            callback(this.value);
+        });
+
+        options.forEach(option => {
+            var optionNode = document.createElement('option');
+
+            optionNode.value = option.value;
+            optionNode.innerHTML = option.text;
+
+            select.appendChild(optionNode);
+        });
+
+        parent.appendChild(select);
     },
 };

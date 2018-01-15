@@ -10,7 +10,6 @@ var levels = {
             grid.addCell(creature.x, creature.y);
         });
 
-
         level.creatures.forEach(function(creature){
             grid.addCreature(creature.name, creature.x, creature.y);
         });
@@ -42,17 +41,18 @@ var levels = {
     },
     builder: {
         currentAction(){},
+        currentCreature: "blinker",
         open(width, height){
             loop.stop();
             grid.buildEmpty(width, height);
-            levels.builder.currentAction = levels.builder.toggleCell.bind({});
+            levels.builder.currentAction = levels.builder.addCell.bind({});
 
             ui.dynamicGrid.querySelectorAll('.cell').forEach(function(cell){
                 cell.addEventListener('click', function(){
                     var meta = this.id.split('-');
 
-                    var x = meta[1];
-                    var y = meta[2];
+                    var x = parseInt(meta[1]);
+                    var y = parseInt(meta[2]);
                     
                     levels.builder.currentAction(x, y);
 
@@ -67,43 +67,88 @@ var levels = {
             loop.start();
             loop.stop();
         },
-        toggleCell(x, y){
-            grid.data[y][x] = grid.data[y][x] ? false : true; 
-        },
-        togglePoint(x, y){
-            utilities.devDebug('levels.builder.togglePoint');
+        addCell(x, y){
+            utilities.devDebug('levels.builder.addCell');
 
-            levels.builder.toggleResource(x, y, 'point');
+            if(!levels.builder.removeCurrent(x, y)){
+                grid.data[y][x] = true; 
+            }
         },
-        toggleLife(x, y){
-            utilities.devDebug('levels.builder.toggleLife');
-            levels.builder.toggleResource(x, y, 'life');
+        addPoint(x, y){
+            utilities.devDebug('levels.builder.addPoint');
+
+            if(!levels.builder.removeCurrent(x, y)){
+                levels.builder.addResource(x, y, 'point');
+            }
         },
-        toggleResource(x, y, type){
-            var populated = false;
+        addLife(x, y){
+            utilities.devDebug('levels.builder.addLife');
+
+            if(!levels.builder.removeCurrent(x, y)){
+                levels.builder.addResource(x, y, 'life');
+            }
+        },
+        addResource(x, y, type){
+            var resource = {
+                type: type,
+                x: x,
+                y: y
+            }
+            grid.addObject(resource);
+
+            resources.push(Object.assign({}, resource));
+        },
+        addRock(x, y){
+            utilities.devDebug('levels.builder.addRock');
+
+            if(!levels.builder.removeCurrent(x, y)){
+                levels.builder.addObstacle(x, y, 'rock');
+            }
+        },
+        addObstacle(x, y, type){
+            utilities.devDebug('levels.builder.addObstacle');
+            var obstacle = {
+                type: type,
+                x: x,
+                y: y
+            }
+            grid.addObject(obstacle);
+
+            obstacles.push(Object.assign({}, obstacle));
+        },
+        removeCurrent(x, y){
+            var removed = false;
 
             resources.forEach(function(item, index, object){
                 if(item.x === x && item.y === y){
-                    populated = true;
                     object.splice(index, 1);
                     document.getElementById("static-" + item.x + "-" + item.y).innerHTML = "";
+
+                    removed = true;
                 }
             });
-            
-            if(!populated){
-                var resource = {
-                    type: type,
-                    x: x,
-                    y: y
-                }
-                grid.addObject(resource);
 
-                resources.push(Object.assign({}, resource));
+            obstacles.forEach(function(item, index, object){
+                if(item.x === x && item.y === y){
+                    object.splice(index, 1);
+                    document.getElementById("static-" + item.x + "-" + item.y).innerHTML = "";
+
+                    removed = true;
+                }
+            });
+
+            if(grid.data[y][x]){
+                removed = true;
+                grid.data[y][x] = false;
             }
+
+            return removed;
+        },
+        addCreature(x, y){
+            grid.addCreature(levels.builder.currentCreature, x, y, 0);
         }
     },
     data: [
-
         {
             name: "The Beginning",
             width:40,

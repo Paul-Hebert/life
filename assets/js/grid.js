@@ -134,7 +134,7 @@ var grid = {
         }
     },
 
-    addCreature(creature, x, y, rotation){
+    addCreature(creature, x, y, rotation){;
         var creatureData = creatures[creature].data;
         var creatureWidth = creatureData[0].length;
         var creatureHeight = creatureData.length;
@@ -146,9 +146,12 @@ var grid = {
 
                 if(typeof grid.data[currentY] !== "undefined" && typeof grid.data[currentY][currentX] !== "undefined"){
                     grid.data[currentY][currentX] = creatureData[yCount][xCount] === 1 ? true : false;
+                    console.log(creatureData[yCount][xCount]);
                 }
             }
         }
+
+        grid.render();
     },
 
     addCell(x,y){

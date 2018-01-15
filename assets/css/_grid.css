@@ -43,6 +43,11 @@
 /*************************************************************************/
 .gridBuilder .static .cell {
   border: 1px solid #ccc;
+  position: relative;
+}
+
+.gridBuilder .static .cell svg {
+  position: absolute;
 }
 
 .gooey .dynamic {
@@ -52,7 +57,7 @@
 }
 
 .transition .cell {
-  transition: 1000ms background-color;
+  transition: 500ms background-color;
 }
 
 .transition .cell.player {
