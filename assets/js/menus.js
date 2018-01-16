@@ -58,6 +58,48 @@ var menus = {
             menus.addDropdown(ui.levelBuilderMenu, creatureOptions, "", "creatureOptions", function(value){
                 levels.builder.currentCreature = value;
             });
+
+            var rotationOptions = [
+                {
+                    value: 0,
+                    text: "0 degrees"
+                },
+                {
+                    value: 90,
+                    text: "90 degrees"
+                },
+                {
+                    value: 180,
+                    text: "180 degrees"
+                },
+                {
+                    value: 270,
+                    text: "270 degrees"
+                }
+            ];
+
+            menus.addDropdown(ui.levelBuilderMenu, rotationOptions, "", "rotationOptions", function(value){
+                levels.builder.currentRotation = value;
+            });
+
+            var flipOptions = [
+                {
+                    value: "none",
+                    text: "none"
+                },
+                {
+                    value: "horizontal",
+                    text: "horizontal"
+                },
+                {
+                    value: "vertical",
+                    text: "vertical"
+                }
+            ];
+
+            menus.addDropdown(ui.levelBuilderMenu, flipOptions, "", "flipOptions", function(value){
+                levels.builder.currentFlipDirection = value;
+            });
         }
     },
 

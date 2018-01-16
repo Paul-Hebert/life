@@ -11,7 +11,7 @@ var levels = {
         });
 
         level.creatures.forEach(function(creature){
-            grid.addCreature(creature.name, creature.x, creature.y);
+            grid.addCreature(creature.name, creature.x, creature.y, null);
         });
 
         resources = [];
@@ -41,7 +41,10 @@ var levels = {
     },
     builder: {
         currentAction(){},
-        currentCreature: "blinker",
+        currentCreature: Object.keys(creatures)[0],
+        currentRotation: 0,
+        currentFlipDirection: "none",
+        
         open(width, height){
             loop.stop();
             grid.buildEmpty(width, height);
@@ -145,7 +148,7 @@ var levels = {
             return removed;
         },
         addCreature(x, y){
-            grid.addCreature(levels.builder.currentCreature, x, y, 0);
+            grid.addCreature(levels.builder.currentCreature, x, y, levels.builder.currentRotation, levels.builder.currentFlipDirection);
         }
     },
     data: [
