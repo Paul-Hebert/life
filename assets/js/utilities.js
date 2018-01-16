@@ -35,16 +35,16 @@ var utilities = {
     },
     // Rotates an array
     transpose(array){
-        var width = array.length;
+        var height = array.length - 1;
 
-        var height = array[0].length;
+        var width = array[0].length - 1;
 
         var newArray = [];
 
-        for(x = 0; x < width; x++){
+        for(x = 0; x <= width; x++){
             var newRow = [];
 
-            for(y = 0; y < height; y++){
+            for(y = 0; y <= height; y++){
                 newRow.push(array[y][x]);
             }
 
@@ -64,30 +64,22 @@ var utilities = {
         var width = array[0].length - 1;
 
         var newArray = [];
+        
+        for(y = 0; y <= height; y++){
+            var newRow = [];
 
-        if(direction === 'horizontal'){
-            for(y = 0; y <= height; y++){
-                var newRow = [];
-    
-                for(x = 0; x <= width; x++){
-                    newRow.push(array[y][width - x]);
-                }
-    
-                newArray.push(newRow);
-            }
-        } else if(direction === 'vertical'){
-            for(y = 0; y <= height; y++){
-                var newRow = [];
-    
-                for(x = 0; x <= width; x++){
+            for(x = 0; x <= width; x++){
+                if(direction === 'horizontal'){
+                    newRow.push(array[y][width - x]); 
+                } else if(direction === 'vertical'){
                     newRow.push(array[height - y][x]);
+                } else{
+                    console.log("You can only flip by vertical or horizontal")
+                    return false;
                 }
-    
-                newArray.push(newRow);
             }
-        } else{
-            console.log("You can only flip by vertical or horizontal")
-            return false;
+
+            newArray.push(newRow);
         }
 
         return newArray;
