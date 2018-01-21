@@ -1,6 +1,7 @@
 var player = {
     lives: 3,
     points: 0,
+    direction: "none",
     reset(position){
         player.position = Object.assign({}, position);
         player.points = 0;
@@ -36,12 +37,22 @@ var player = {
         var oldY = pos.y;
 
         if(controls.pressedKey === "left"){
-            pos.x = grid.checkBounds(levels.current.width, pos.x - 1);
+           player.direction = "left";
         } else if(controls.pressedKey === "right"){
-            pos.x = grid.checkBounds(levels.current.width, pos.x + 1);
+            player.direction = "right";
         } else if(controls.pressedKey === "up"){
-            pos.y = grid.checkBounds(levels.current.height, pos.y - 1);
+            player.direction = "up";
         }else if(controls.pressedKey === "down"){
+            player.direction = "down";
+        }
+
+        if(player.direction === "left"){
+            pos.x = grid.checkBounds(levels.current.width, pos.x - 1);
+        } else if(player.direction === "right"){
+            pos.x = grid.checkBounds(levels.current.width, pos.x + 1);
+        } else if(player.direction === "up"){
+            pos.y = grid.checkBounds(levels.current.height, pos.y - 1);
+        }else if(player.direction === "down"){
             pos.y = grid.checkBounds(levels.current.height, pos.y + 1);
         }
 
