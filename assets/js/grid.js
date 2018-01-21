@@ -147,8 +147,8 @@ var grid = {
 
         for(yCount = 0; yCount < creatureHeight; yCount++){
             for(xCount = 0; xCount < creatureWidth; xCount++){
-                var currentX = grid.checkBounds(levels.data[life.currentLevel].width, xCount + x);
-                var currentY = grid.checkBounds(levels.data[life.currentLevel].height, yCount + y);
+                var currentX = grid.checkBounds(levels.data[levels.current].width, xCount + x);
+                var currentY = grid.checkBounds(levels.data[levels.current].height, yCount + y);
 
                 if(typeof grid.data[currentY] !== "undefined" && typeof grid.data[currentY][currentX] !== "undefined"){
                     grid.data[currentY][currentX] = creatureData[yCount][xCount] === 1 ? true : false;

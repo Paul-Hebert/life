@@ -36,27 +36,27 @@ var player = {
         var oldY = pos.y;
 
         if(controls.pressedKey === "left"){
-            pos.x = grid.checkBounds(levels.data[life.currentLevel].width, pos.x - 1);
+            pos.x = grid.checkBounds(levels.data[levels.current].width, pos.x - 1);
         } else if(controls.pressedKey === "right"){
-            pos.x = grid.checkBounds(levels.data[life.currentLevel].width, pos.x + 1);
+            pos.x = grid.checkBounds(levels.data[levels.current].width, pos.x + 1);
         } else if(controls.pressedKey === "up"){
-            pos.y = grid.checkBounds(levels.data[life.currentLevel].height, pos.y - 1);
+            pos.y = grid.checkBounds(levels.data[levels.current].height, pos.y - 1);
         }else if(controls.pressedKey === "down"){
-            pos.y = grid.checkBounds(levels.data[life.currentLevel].height, pos.y + 1);
+            pos.y = grid.checkBounds(levels.data[levels.current].height, pos.y + 1);
         }
 
         if(player.points === levels.points){
-            life.currentLevel++;
+            levels.current++;
 
-            if(life.currentLevel >= levels.data.length){
+            if(levels.current >= levels.data.length){
                 alert('You Win! No More levels!');
 
                 loop.stop();
 
             } else{
-                alert('You Win! Loading Level ' + (life.currentLevel + 1) + ".");
+                alert('You Win! Loading Level ' + (levels.current + 1) + ".");
 
-                levels.load(levels.data[life.currentLevel]);
+                levels.load(levels.data[levels.current]);
             }
         } else{
             var blocked = false;
@@ -82,7 +82,7 @@ var player = {
                         alert("You're Dead! " + player.lives + " lives left.");
         
                         loop.stop();
-                        levels.load(levels.data[life.currentLevel]);
+                        levels.load(levels.data[levels.current]);
                     } else{
                         alert("You lose!");
                         loop.stop();
