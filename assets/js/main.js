@@ -23,9 +23,9 @@ var life = {
     startGame(){
         utilities.devDebug('life.startGame');
 
-        levels.current = 0;
+        levels.currentIndex = 0;
 
-        levels.load(levels.data[levels.current]);
+        levels.load(levels.current);
     },
 
     takeTurn(){

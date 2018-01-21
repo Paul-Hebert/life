@@ -8,7 +8,7 @@ var menus = {
 
             for(let levelCount = 0; levelCount < levels.data.length; levelCount++){
                 menus.addButton(ui.startMenu, levels.data[levelCount].name, "", "", true, function(){
-                    levels.current = levelCount;
+                    levels.currentIndex = levelCount;
                     
                     levels.load(levels.data[levelCount]);
                 });

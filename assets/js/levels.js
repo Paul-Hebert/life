@@ -1,6 +1,12 @@
 var levels = {
+    current: {},
+    currentIndex: 0,
     load(level){
         utilities.devDebug('life.loadLevel');
+
+        levels.current = Object.assign(level, {});
+
+        ui.body.classList.remove('gridBuilder');
 
         grid.buildEmpty(level.width, level.height);
 
