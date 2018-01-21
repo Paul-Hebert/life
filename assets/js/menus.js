@@ -10,7 +10,7 @@ var menus = {
                 menus.addButton(ui.startMenu, levels.data[levelCount].name, "", "", true, function(){
                     life.currentLevel = levelCount;
                     
-                    levels.load(levelCount);
+                    levels.load(levels.data[levelCount]);
                 });
             }
 

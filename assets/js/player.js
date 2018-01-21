@@ -36,13 +36,13 @@ var player = {
         var oldY = pos.y;
 
         if(controls.pressedKey === "left"){
-            pos.x = grid.checkBounds(settings.width, pos.x - 1);
+            pos.x = grid.checkBounds(levels.data[life.currentLevel].width, pos.x - 1);
         } else if(controls.pressedKey === "right"){
-            pos.x = grid.checkBounds(settings.width, pos.x + 1);
+            pos.x = grid.checkBounds(levels.data[life.currentLevel].width, pos.x + 1);
         } else if(controls.pressedKey === "up"){
-            pos.y = grid.checkBounds(settings.height, pos.y - 1);
+            pos.y = grid.checkBounds(levels.data[life.currentLevel].height, pos.y - 1);
         }else if(controls.pressedKey === "down"){
-            pos.y = grid.checkBounds(settings.height, pos.y + 1);
+            pos.y = grid.checkBounds(levels.data[life.currentLevel].height, pos.y + 1);
         }
 
         if(player.points === levels.points){
@@ -56,7 +56,7 @@ var player = {
             } else{
                 alert('You Win! Loading Level ' + (life.currentLevel + 1) + ".");
 
-                levels.load(life.currentLevel);
+                levels.load(levels.data[life.currentLevel]);
             }
         } else{
             var blocked = false;
@@ -82,7 +82,7 @@ var player = {
                         alert("You're Dead! " + player.lives + " lives left.");
         
                         loop.stop();
-                        levels.load(life.currentLevel);
+                        levels.load(levels.data[life.currentLevel]);
                     } else{
                         alert("You lose!");
                         loop.stop();
@@ -93,12 +93,9 @@ var player = {
                     if(item.x === pos.x && item.y === pos.y){
                         if(item.type === "life"){
                             player.gainLife();
-                            console.log("Life Gained: You have " + player.lives + " lives.")
                         } else if(item.type === "point"){
                             player.points++;
-                            player.renderData.points();        
-                            
-                            console.log('point');
+                            player.renderData.points();                                    
                         }
         
                         object.splice(index, 1);

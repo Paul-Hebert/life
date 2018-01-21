@@ -1,8 +1,6 @@
 var levels = {
-    load(id){
+    load(level){
         utilities.devDebug('life.loadLevel');
-
-        var level = levels.data[id];
 
         grid.buildEmpty(level.width, level.height);
 
@@ -11,7 +9,7 @@ var levels = {
         });
 
         level.creatures.forEach(function(creature){
-            grid.addCreature(creature.name, creature.x, creature.y, null, null);
+            grid.addCreature(creature.name, creature.x, creature.y, 0, "none");
         });
 
         resources = [];
@@ -32,6 +30,8 @@ var levels = {
             grid.addObject(obstacle);
             obstacles.push(Object.assign({}, obstacle));
         });
+
+        console.log(level.playerPosition)
 
         player.reset(level.playerPosition);
 
@@ -195,131 +195,6 @@ var levels = {
     },
     data: [
         {
-            "width":30,
-            "height":30,
-            "cells":[
-               {
-                  "x":0,
-                  "y":19
-               },
-               {
-                  "x":6,
-                  "y":13
-               },
-               {
-                  "x":6,
-                  "y":23
-               },
-               {
-                  "x":26,
-                  "y":6
-               },
-               {
-                  "x":20,
-                  "y":8
-               },
-               {
-                  "x":25,
-                  "y":1
-               },
-               {
-                  "x":11,
-                  "y":2
-               }
-            ],
-            "resources":[
-               {
-                  "type":"point",
-                  "x":10,
-                  "y":19
-               },
-               {
-                  "type":"point",
-                  "x":17,
-                  "y":20
-               },
-               {
-                  "type":"point",
-                  "x":18,
-                  "y":12
-               },
-               {
-                  "type":"point",
-                  "x":26,
-                  "y":10
-               },
-               {
-                  "type":"point",
-                  "x":19,
-                  "y":3
-               },
-               {
-                  "type":"point",
-                  "x":26,
-                  "y":20
-               },
-               {
-                  "type":"point",
-                  "x":5,
-                  "y":12
-               },
-               {
-                  "type":"point",
-                  "x":11,
-                  "y":4
-               },
-               {
-                  "type":"point",
-                  "x":7,
-                  "y":25
-               },
-               {
-                  "type":"point",
-                  "x":18,
-                  "y":25
-               },
-               {
-                  "type":"life",
-                  "x":16,
-                  "y":23
-               },
-               {
-                  "type":"life",
-                  "x":24,
-                  "y":5
-               },
-               {
-                  "type":"life",
-                  "x":7,
-                  "y":2
-               }
-            ],
-            "obstacles":[
-         
-            ],
-            "creatures":[
-               {
-                  name:"glider",
-                  x:13,
-                  y:2
-               },
-               {
-                  name:"glider",
-                  x:23,
-                  y:5
-               },
-               {
-                  type:"middleweightSpaceship",
-                  x:1,
-                  y:24
-               }
-            ],
-            "playerPosition":{
-               "x":10,
-               "y":10
-            }
-         },
-                 {
             name: "The Beginning",
             width:40,
             height:30,
@@ -387,11 +262,6 @@ var levels = {
                 },
                 {
                     type:"point",
-                    x: 29,
-                    y: 28
-                },
-                {
-                    type:"point",
                     x: 11,
                     y: 3
                 },
@@ -399,11 +269,6 @@ var levels = {
                     type:"life",
                     x: 1,
                     y: 13
-                },
-                {
-                    type:"point",
-                    x: 34,
-                    y: 8
                 },
                 {
                     type:"point",
