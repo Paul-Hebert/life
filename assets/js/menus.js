@@ -24,6 +24,10 @@ var menus = {
         build(){
             var menuHtml = "";
 
+            menus.addButton(ui.levelBuilderMenu, "Run Level", "", "runLevelButton", true, function(){
+                levels.load(levels.builder.newLevel);
+            });
+
             menus.addButton(ui.levelBuilderMenu, "Add Player", "", "addPlayerButton", false, function(){
                 levels.builder.currentAction = levels.builder.addPlayer.bind({});
             });
