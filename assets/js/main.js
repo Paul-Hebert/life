@@ -25,7 +25,7 @@ var life = {
 
         levels.currentIndex = 0;
 
-        levels.load(levels.current);
+        levels.load(levels.data[0]);
     },
 
     takeTurn(){
