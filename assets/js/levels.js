@@ -6,8 +6,6 @@ var levels = {
 
         levels.current = Object.assign(level, {});
 
-        ui.body.classList.remove('gridBuilder');
-
         grid.buildEmpty(level.width, level.height);
 
         level.cells.forEach(function(creature){

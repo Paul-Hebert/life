@@ -25,6 +25,8 @@ var menus = {
             var menuHtml = "";
 
             menus.addButton(ui.levelBuilderMenu, "Run Level", "", "runLevelButton", true, function(){
+                ui.body.classList.remove('gridBuilder');
+
                 levels.load(levels.builder.newLevel);
             });
 
