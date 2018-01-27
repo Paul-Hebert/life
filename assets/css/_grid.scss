@@ -68,13 +68,8 @@
 }
 
 .transition{
-    .cell{
+    .dynamic .cell{
         transition:500ms background-color;
-
-
-        &.player{
-            transition:50ms background-color;
-        }
     }
 }
 

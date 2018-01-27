@@ -56,12 +56,8 @@
   -webkit-filter: url("../svg-filters/gooey.svg#goo");
 }
 
-.transition .cell {
+.transition .dynamic .cell {
   transition: 500ms background-color;
-}
-
-.transition .cell.player {
-  transition: 50ms background-color;
 }
 
 .hoveredEffects .cell:hover {

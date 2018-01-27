@@ -24,8 +24,8 @@ var life = {
         utilities.devDebug('life.startGame');
 
         levels.currentIndex = 0;
-
-        levels.load(levels.current);
+                    
+        levels.load(levels.data[0]);
     },
 
     takeTurn(){
@@ -36,7 +36,10 @@ var life = {
         grid.updateData();
 
         if(typeof player.position !== "undefined"){
-            player.move();
+            player.checkControls();
+            for(var i = 0; i <= player.speed; i += 10){
+                player.move();
+            }
         }
 
         grid.render();

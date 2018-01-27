@@ -1,6 +1,8 @@
 var player = {
     lives: 3,
     points: 0,
+    speed:0,
+    maxSpeed: 30,
     direction: "none",
     reset(position){
         player.position = Object.assign({}, position);
@@ -28,23 +30,44 @@ var player = {
             ui.totalPoints.innerHTML = levels.points;
         }
     },
+    checkControls(){
+        utilities.devDebug("player.checkControls");
 
+        var newDirection = null;
+
+        if(controls.pressedKey === "left"){
+            newDirection = "left";
+        } else if(controls.pressedKey === "right"){
+            newDirection = "right";
+        } else if(controls.pressedKey === "up"){
+            newDirection = "up";
+        }else if(controls.pressedKey === "down"){
+            newDirection = "down";
+        }
+        if(newDirection === null){
+            player.speed -= 10;
+        } else if(newDirection === player.direction){
+            player.speed += 3;
+        } else{
+            player.speed = 1;
+        }
+
+        if(player.speed > player.maxSpeed){
+            player.speed = player.maxSpeed;
+        } else if(player.speed < 0){
+            player.speed = 0;
+        }
+
+        player.direction = newDirection;
+
+        controls.pressedKey = null;
+    },
     move(){
         utilities.devDebug("player.move");
 
         var pos = Object.assign(player.position, {});
         var oldX = pos.x;
         var oldY = pos.y;
-
-        if(controls.pressedKey === "left"){
-           player.direction = "left";
-        } else if(controls.pressedKey === "right"){
-            player.direction = "right";
-        } else if(controls.pressedKey === "up"){
-            player.direction = "up";
-        }else if(controls.pressedKey === "down"){
-            player.direction = "down";
-        }
 
         if(player.direction === "left"){
             pos.x = grid.checkBounds(levels.current.width, pos.x - 1);
@@ -54,6 +77,10 @@ var player = {
             pos.y = grid.checkBounds(levels.current.height, pos.y - 1);
         }else if(player.direction === "down"){
             pos.y = grid.checkBounds(levels.current.height, pos.y + 1);
+        }
+
+        if(typeof player.position !== "undefined"){
+            document.getElementById("dynamic-" + player.position.x + "-" + player.position.y).classList.add('player');
         }
 
         if(player.points === levels.points){
